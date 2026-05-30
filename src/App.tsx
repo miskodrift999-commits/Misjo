@@ -26,6 +26,21 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 
 export default function App() {
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    return (localStorage.getItem("theme") as "light" | "dark") || "light";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+      document.documentElement.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   const [photos, setPhotos] = useState<SelfiePhoto[]>([]);
   const [activePhoto, setActivePhoto] = useState<SelfiePhoto | null>(null);
   
@@ -191,10 +206,10 @@ export default function App() {
   };
 
   return (
-    <div id="editorial-theme-vault" className="min-h-screen text-zinc-800 flex flex-col font-sans transition-all duration-300">
+    <div id="editorial-theme-vault" className="min-h-screen text-zinc-800 dark:text-zinc-100 flex flex-col font-sans transition-all duration-300">
       
       {/* Editorial aesthetic header with live time */}
-      <SelfieHeader totalCount={photos.length} />
+      <SelfieHeader totalCount={photos.length} theme={theme} onToggleTheme={() => setTheme(prev => prev === "light" ? "dark" : "light")} />
 
       {/* Main grid portfolio structure */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -203,29 +218,29 @@ export default function App() {
         <section className="lg:col-span-4 space-y-8 flex flex-col">
           
           {/* Aesthetic Brand Navigation (Static Index) */}
-          <div className="hidden lg:block border-b border-blue-100 pb-6 pr-4">
-            <h2 className="text-xs tracking-[0.3em] uppercase opacity-50 mb-6 font-mono text-zinc-500">
+          <div className="hidden lg:block border-b border-blue-100 dark:border-indigo-950/50 pb-6 pr-4">
+            <h2 className="text-xs tracking-[0.3em] uppercase opacity-50 mb-6 font-mono text-zinc-500 dark:text-zinc-400">
               The Identity Vault
             </h2>
             <nav className="space-y-4">
               <div className="group cursor-pointer flex items-center justify-between">
                 <div className="flex flex-col">
-                  <span className="text-[10px] opacity-60 mb-0.5 text-[#005BFE] font-bold font-mono">01.</span>
-                  <span className="text-base font-serif italic tracking-wide text-[#005BFE] group-hover:text-[#FF7830] transition-colors">Exhibition</span>
+                  <span className="text-[10px] opacity-60 mb-0.5 text-[#005BFE] dark:text-indigo-400 font-bold font-mono">01.</span>
+                  <span className="text-base font-serif italic tracking-wide text-[#005BFE] dark:text-indigo-400 group-hover:text-[#FF7830] transition-colors">Exhibition</span>
                 </div>
-                <ChevronRight className="h-4 w-4 text-[#005BFE] group-hover:text-[#FF7830] transition-all" />
+                <ChevronRight className="h-4 w-4 text-[#005BFE] dark:text-indigo-400 group-hover:text-[#FF7830] transition-all" />
               </div>
-              <div className="group cursor-pointer border-blue-100 border-t pt-3 flex items-center justify-between">
+              <div className="group cursor-pointer border-blue-100 dark:border-indigo-950/50 border-t pt-3 flex items-center justify-between">
                 <div className="flex flex-col">
-                  <span className="text-[10px] opacity-50 mb-0.5 text-zinc-550 font-mono">02.</span>
-                  <span className="text-base font-serif italic tracking-wide text-zinc-500 group-hover:text-[#005BFE] transition-colors">Studio Archives</span>
+                  <span className="text-[10px] opacity-50 mb-0.5 text-zinc-500 dark:text-zinc-400 font-mono">02.</span>
+                  <span className="text-base font-serif italic tracking-wide text-zinc-500 dark:text-zinc-400 group-hover:text-[#005BFE] dark:group-hover:text-indigo-400 transition-colors">Studio Archives</span>
                 </div>
-                <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 text-[#005BFE] transition-all" />
+                <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 text-[#005BFE] dark:text-indigo-400 transition-all" />
               </div>
-              <div className="group cursor-pointer border-blue-100 border-t pt-3 flex items-center justify-between">
+              <div className="group cursor-pointer border-blue-100 dark:border-indigo-950/50 border-t pt-3 flex items-center justify-between">
                 <div className="flex flex-col">
-                  <span className="text-[10px] opacity-50 mb-0.5 text-zinc-550 font-mono">03.</span>
-                  <span className="text-base font-serif italic tracking-wide text-[#FF7830] group-hover:text-[#005BFE] transition-colors">Upload Deck</span>
+                  <span className="text-[10px] opacity-50 mb-0.5 text-zinc-500 dark:text-zinc-400 font-mono">03.</span>
+                  <span className="text-base font-serif italic tracking-wide text-[#FF7830] group-hover:text-[#005BFE] dark:group-hover:text-indigo-400 transition-colors">Upload Deck</span>
                 </div>
                 <Layers className="h-4 w-4 text-[#FF7830] animate-pulse" />
               </div>
@@ -243,16 +258,16 @@ export default function App() {
           </div>
 
           {/* Educational metadata block */}
-          <div className="p-4 border border-[#005BFE]/15 bg-white/60 backdrop-blur-md rounded-sm space-y-3 font-mono shadow-sm">
-            <p className="text-[9px] uppercase tracking-widest text-[#005BFE] flex items-center gap-1 font-semibold">
+          <div className="p-4 border border-[#005BFE]/15 dark:border-indigo-950/50 bg-white/60 dark:bg-[#070613]/55 backdrop-blur-md rounded-sm space-y-3 font-mono shadow-sm transition-all duration-300">
+            <p className="text-[9px] uppercase tracking-widest text-[#005BFE] dark:text-indigo-400 flex items-center gap-1 font-semibold">
               <Info className="h-3 w-3" /> System Specs
             </p>
-            <div className="w-full h-[1px] bg-[#005BFE]/15"></div>
-            <ul className="text-[8.5px] uppercase text-zinc-600 space-y-1.5 leading-relaxed font-semibold">
+            <div className="w-full h-[1px] bg-[#005BFE]/15 dark:bg-indigo-950/30"></div>
+            <ul className="text-[8.5px] uppercase text-zinc-650 dark:text-zinc-400 space-y-1.5 leading-relaxed font-semibold">
               <li>• API: Gemini-3.5-Flash (vision, mood, colors, tags)</li>
               <li>• Edit: Gemini-2.5-Flash-Image (presets & custom)</li>
               <li>• Workspace: local persistent indexedDB database</li>
-              <li>• Theme: iridescent light Sonic blue & sherbet orange</li>
+              <li>• Theme: {theme === "light" ? "iridescent light sonic blue & sherbet orange" : "midnight velvet dark indigo & high hot glow"}</li>
             </ul>
           </div>
         </section>
@@ -262,23 +277,23 @@ export default function App() {
           
           {/* Header series subtitle */}
           <div className="relative h-24 mb-2">
-            <h1 className="absolute top-0 left-0 text-[64px] sm:text-[96px] font-serif leading-[0.8] tracking-tighter opacity-5 select-none font-bold bg-gradient-to-r from-[#005BFE] to-[#FF7830] bg-clip-text text-transparent">
+            <h1 className="absolute top-0 left-0 text-[64px] sm:text-[96px] font-serif leading-[0.8] tracking-tighter opacity-5 dark:opacity-10 select-none font-bold bg-gradient-to-r from-[#005BFE] to-[#FF7830] dark:from-[#3B82F6] dark:to-[#FF8A00] bg-clip-text text-transparent">
               PORTRAIT
             </h1>
-            <div className="relative z-10 pt-4 flex justify-between items-end border-b border-blue-100 pb-3">
+            <div className="relative z-10 pt-4 flex justify-between items-end border-b border-blue-100 dark:border-indigo-950/50 pb-3">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 dark:text-zinc-500">
                   Current Coords Collection
                 </p>
-                <h3 className="text-xl sm:text-2xl font-serif italic text-zinc-900 mt-1">
+                <h3 className="text-xl sm:text-2xl font-serif italic text-zinc-900 dark:text-slate-100 mt-1">
                   Series 04: The Expressive Portraiture
                 </h3>
               </div>
               <div className="text-right hidden sm:block">
-                <p className="text-[9px] uppercase tracking-widest text-zinc-400 font-mono">
+                <p className="text-[9px] uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-mono">
                   EXHIBITION_STATE
                 </p>
-                <p className="text-xs font-mono text-[#005BFE] font-bold">
+                <p className="text-xs font-mono text-[#005BFE] dark:text-indigo-400 font-bold">
                   ONLINE // LIVE
                 </p>
               </div>
@@ -302,12 +317,12 @@ export default function App() {
                     <SelfieDetail photo={activePhoto} />
                   </motion.div>
                 ) : (
-                  <div className="bg-white/60 backdrop-blur-sm border border-blue-100/80 p-10 text-center text-zinc-500 flex flex-col items-center justify-center py-20 rounded-sm shadow-sm">
-                    <Grid className="h-8 w-8 text-[#005BFE]/40 mb-3" />
-                    <p className="font-serif italic text-base text-zinc-800">
+                  <div className="bg-white/60 dark:bg-[#070613]/50 backdrop-blur-sm border border-blue-100/80 dark:border-indigo-950/40 p-10 text-center text-zinc-500 dark:text-zinc-400 flex flex-col items-center justify-center py-20 rounded-sm shadow-sm">
+                    <Grid className="h-8 w-8 text-[#005BFE]/40 dark:text-indigo-400/40 mb-3" />
+                    <p className="font-serif italic text-base text-zinc-800 dark:text-slate-200">
                       No portraits in showcase.
                     </p>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mt-1 max-w-xs leading-relaxed">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 mt-1 max-w-xs leading-relaxed">
                       Capture snapshots or upload files to generate a personalized iridescent analysis portfolio
                     </p>
                   </div>
@@ -317,19 +332,19 @@ export default function App() {
 
             {/* Scrollable Gallery list of photos (XL: Col 1-6) */}
             <div className="xl:col-span-6 order-2 xl:order-1 space-y-4">
-              <span className="block text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-mono">
+              <span className="block text-[10px] uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400 font-mono">
                 Index of Looks ({photos.length})
               </span>
               
               {isRefreshingIndex && photos.length === 0 && (
-                <div className="text-center py-12 font-mono text-zinc-500 text-xs">
-                  <RefreshCw className="h-5 w-5 animate-spin mx-auto mb-2 text-[#005BFE]" />
+                <div className="text-center py-12 font-mono text-zinc-500 dark:text-zinc-400 text-xs">
+                  <RefreshCw className="h-5 w-5 animate-spin mx-auto mb-2 text-[#005BFE] dark:text-indigo-400" />
                   LOADING DB...
                 </div>
               )}
 
               {photos.length === 0 && !isRefreshingIndex ? (
-                <div className="p-8 border border-dashed border-blue-100 text-center text-zinc-400 font-mono text-xs py-14 bg-white/40">
+                <div className="p-8 border border-dashed border-blue-100 dark:border-indigo-950/50 text-center text-zinc-400 dark:text-zinc-500 font-mono text-xs py-14 bg-white/40 dark:bg-slate-950/40">
                   INDEX IS EMPTY
                 </div>
               ) : (
@@ -340,7 +355,7 @@ export default function App() {
                       onClick={() => setActivePhoto(p)}
                       className={`cursor-pointer transition-all duration-200 ${
                         activePhoto?.id === p.id 
-                          ? "ring-2 ring-[#005BFE]/50 scale-[0.99] border-[#FF7830]/80 rounded-sm" 
+                          ? "ring-2 ring-[#005BFE]/55 dark:ring-indigo-400/60 scale-[0.99] border-[#FF7830]/80 rounded-sm animate-pulse" 
                           : "opacity-90 hover:opacity-100"
                       }`}
                     >
@@ -363,13 +378,13 @@ export default function App() {
       </main>
 
       {/* Persistent Bottom Status Coordinates */}
-      <footer className="border-t border-blue-100 bg-white/40 backdrop-blur-md py-4 px-6 mt-16 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] font-mono text-zinc-500">
-        <div className="flex gap-4 sm:gap-6 uppercase tracking-widest text-[#005BFE]/60 font-semibold">
+      <footer className="border-t border-blue-100 dark:border-indigo-950/45 bg-white/40 dark:bg-slate-950/20 backdrop-blur-md py-4 px-6 mt-16 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 transition-colors duration-300">
+        <div className="flex gap-4 sm:gap-6 uppercase tracking-widest text-[#005BFE]/60 dark:text-indigo-400/70 font-semibold">
           <span>System: Secure</span>
           <span>Encryption: Active</span>
-          <span>Aesthetic Version: Iridescent v4.5</span>
+          <span>Aesthetic Session: {theme === "light" ? "Iridescent Light" : "Midnight Velvet"}</span>
         </div>
-        <div className="text-[#FF7830] font-semibold">
+        <div className="text-[#FF7830] font-semibold tracking-wider">
           NESS_RECALL_001 // THE PORTRAIT DIALOGUE
         </div>
       </footer>

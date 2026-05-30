@@ -147,18 +147,18 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
   };
 
   return (
-    <div id="selfie-uploader" className="bg-white/70 backdrop-blur-md rounded-sm border border-blue-100/80 overflow-hidden transition-all duration-300 hover:border-blue-200 shadow-sm">
+    <div id="selfie-uploader" className="bg-white/70 dark:bg-slate-950/70 backdrop-blur-md rounded-sm border border-blue-100/80 dark:border-indigo-950/40 overflow-hidden transition-all duration-300 hover:border-blue-200 dark:hover:border-indigo-900 shadow-sm">
       {/* Tab Switcher */}
       {!draftImage && (
-        <div className="flex border-b border-blue-100 p-1 bg-blue-50/50">
+        <div className="flex border-b border-blue-100 dark:border-indigo-950/45 p-1 bg-blue-50/50 dark:bg-[#070611]/80 mt-[-1px]">
           <button
             id="tab-btn-file"
             type="button"
             onClick={() => setActiveTab("file")}
             className={`flex-1 py-2.5 text-[10px] uppercase tracking-[0.2em] font-mono rounded-none flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
               activeTab === "file"
-                ? "bg-[#005BFE] text-white font-bold shadow-sm"
-                : "text-zinc-500 hover:text-[#005BFE] hover:bg-blue-50/30"
+                ? "bg-[#005BFE] dark:bg-indigo-650 text-white font-bold shadow-sm"
+                : "text-zinc-500 dark:text-zinc-400 hover:text-[#005BFE] dark:hover:text-[#818CF8] hover:bg-blue-50/30 dark:hover:bg-indigo-950/20"
             }`}
           >
             <Upload className="h-3.5 w-3.5" />
@@ -170,8 +170,8 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
             onClick={() => setActiveTab("camera")}
             className={`flex-1 py-2.5 text-[10px] uppercase tracking-[0.2em] font-mono rounded-none flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
               activeTab === "camera"
-                ? "bg-[#005BFE] text-white font-bold shadow-sm"
-                : "text-zinc-500 hover:text-[#005BFE] hover:bg-blue-50/30"
+                ? "bg-[#005BFE] dark:bg-indigo-650 text-white font-bold shadow-sm"
+                : "text-zinc-500 dark:text-zinc-400 hover:text-[#005BFE] dark:hover:text-[#818CF8] hover:bg-blue-50/30 dark:hover:bg-indigo-950/20"
             }`}
           >
             <Camera className="h-3.5 w-3.5" />
@@ -201,11 +201,11 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   onClick={() => fileInputRef.current?.click()}
                   className={`relative border border-dashed rounded-none p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[220px] ${
                     dragActive
-                      ? "border-[#005BFE] bg-blue-100/10 scale-[0.99]"
-                      : "border-blue-200 hover:border-[#005BFE] bg-white/40 hover:bg-white/80"
+                      ? "border-[#005BFE] dark:border-indigo-405 bg-blue-100/10 dark:bg-indigo-950/20 scale-[0.99]"
+                      : "border-blue-200 dark:border-indigo-950/70 hover:border-[#005BFE] dark:hover:border-indigo-400 bg-white/40 dark:bg-[#070611]/30 hover:bg-white/80 dark:hover:bg-[#070611]/60"
                   }`}
                 >
-                  <div className="absolute top-3 left-3 text-[9px] text-zinc-400 font-mono tracking-widest">RECORD_UNIT</div>
+                  <div className="absolute top-3 left-3 text-[9px] text-zinc-400 dark:text-zinc-500 font-mono tracking-widest font-bold">RECORD_UNIT</div>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -213,19 +213,19 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="h-14 w-14 rounded-full border border-blue-100 bg-blue-50/70 flex items-center justify-center text-[#005BFE] mb-4 shadow-sm">
+                  <div className="h-14 w-14 rounded-full border border-blue-100 dark:border-indigo-950/60 bg-blue-50/70 dark:bg-slate-900/40 flex items-center justify-center text-[#005BFE] dark:text-indigo-400 mb-4 shadow-sm">
                     <Upload className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-serif italic text-zinc-800 tracking-wide">
+                  <h3 className="text-lg font-serif italic text-zinc-800 dark:text-slate-100 tracking-wide">
                     Upload a photograph of yourself
                   </h3>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mt-2 max-w-sm leading-relaxed">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 mt-2 max-w-sm leading-relaxed font-semibold">
                     Drag and drop or tap to select image file
                   </p>
                 </div>
               ) : (
                 /* Camera snapshot feed interface */
-                <div className="relative rounded-none overflow-hidden bg-slate-900 border border-blue-100 flex flex-col items-center justify-center min-h-[280px]">
+                <div className="relative rounded-none overflow-hidden bg-slate-900 dark:bg-zinc-950 border border-blue-100 dark:border-indigo-950/40 flex flex-col items-center justify-center min-h-[280px]">
                   <div className="absolute top-3 left-3 text-[9px] text-zinc-400 font-mono tracking-widest z-10 font-bold">LENS_CAPTURE</div>
                   {cameraActive && (
                     <div className="relative w-full aspect-video">
@@ -286,21 +286,21 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
               exit={{ opacity: 0, scale: 0.99 }}
               className="space-y-4"
             >
-              <div className="relative border border-blue-100 bg-slate-50 p-2">
+              <div className="relative border border-blue-100 dark:border-indigo-950 bg-slate-50 dark:bg-zinc-950 p-2">
                 <img
                   src={draftImage}
                   alt="Draft Look"
-                  className="w-full h-72 object-contain bg-white"
+                  className="w-full h-72 object-contain bg-white dark:bg-zinc-900"
                 />
                 <button
                   type="button"
                   onClick={handleCancelDraft}
-                  className="absolute top-4 right-4 bg-white/90 hover:bg-red-500 hover:text-white border border-blue-100 text-zinc-650 rounded-none p-2 transition-all active:scale-90 z-20 shadow-sm cursor-pointer"
+                  className="absolute top-4 right-4 bg-white/90 dark:bg-zinc-900 hover:bg-red-500 hover:text-white border border-blue-100 dark:border-indigo-950 text-zinc-650 dark:text-zinc-300 rounded-none p-2 transition-all active:scale-90 z-20 shadow-sm cursor-pointer"
                   title="Remove this draft"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
-                <div className="absolute bottom-4 left-4 bg-white/95 border border-blue-100 text-[9px] uppercase tracking-widest text-[#005BFE] px-2.5 py-1 font-mono font-bold shadow-sm">
+                <div className="absolute bottom-4 left-4 bg-white/95 dark:bg-[#070611]/90 border border-blue-100 dark:border-indigo-950/60 text-[9px] uppercase tracking-widest text-[#005BFE] dark:text-indigo-400 px-2.5 py-1 font-mono font-bold shadow-sm">
                   EXHIBIT_DRAFT_STAGE
                 </div>
                 
@@ -317,7 +317,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
 
               {/* Note Journal Details */}
               <div className="space-y-1.5 pt-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] font-mono text-zinc-550">
+                <label className="block text-[10px] uppercase tracking-[0.2em] font-mono text-zinc-500 dark:text-zinc-400 font-bold">
                   Write a journal note (optional)
                 </label>
                 <textarea
@@ -326,7 +326,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Record your mindset, focus elements, outfit selections, or vibe..."
                   rows={3}
-                  className="w-full text-xs p-3.5 border border-blue-100 bg-white text-zinc-850 focus:border-[#005BFE] outline-none transition-all placeholder:text-zinc-400 font-sans tracking-wide rounded-none shadow-inner"
+                  className="w-full text-xs p-3.5 border border-blue-100 dark:border-indigo-950 bg-white dark:bg-[#070611]/80 text-zinc-800 dark:text-zinc-150 focus:border-[#005BFE] dark:focus:border-indigo-400 outline-none transition-all placeholder:text-zinc-450 dark:placeholder:text-zinc-500 font-sans tracking-wide rounded-none shadow-inner"
                 />
               </div>
 
@@ -336,7 +336,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   id="btn-selfie-post"
                   type="button"
                   onClick={handleSubmit}
-                  className="flex-1 bg-[#005BFE] hover:bg-[#0046C7] text-white text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
+                  className="flex-1 bg-[#005BFE] hover:bg-[#0046C7] dark:bg-indigo-650 dark:hover:bg-indigo-700 text-white text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
                 >
                   <Check className="h-4 w-4 text-white" />
                   Save Exhibit
@@ -345,7 +345,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   id="btn-selfie-retake"
                   type="button"
                   onClick={handleCancelDraft}
-                  className="bg-transparent hover:bg-blue-50 text-[#005BFE] border border-blue-100 text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="bg-transparent hover:bg-blue-50 dark:hover:bg-indigo-950/45 text-[#005BFE] dark:text-indigo-400 border border-blue-100 dark:border-indigo-950/60 text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <RefreshCw className="h-3.5 w-3.5" />
                   Discard

@@ -34,10 +34,10 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
   });
 
   return (
-    <div id="selfie-detail-view" className="bg-white/70 backdrop-blur-md border border-blue-100 overflow-hidden sticky top-24 shadow-md rounded-sm">
+    <div id="selfie-detail-view" className="bg-white/70 dark:bg-slate-950/70 backdrop-blur-md border border-blue-100 dark:border-indigo-950/40 overflow-hidden sticky top-24 shadow-md rounded-sm transition-all duration-300">
       {/* Decorative Serial ID */}
-      <div className="border-b border-blue-100 px-5 py-3 flex justify-between items-center bg-blue-50/50">
-        <span className="text-[10px] font-mono tracking-[0.3em] text-[#005BFE] uppercase font-bold">
+      <div className="border-b border-blue-100 dark:border-indigo-950/40 px-5 py-3 flex justify-between items-center bg-blue-50/50 dark:bg-[#070611]/60 transition-colors">
+        <span className="text-[10px] font-mono tracking-[0.3em] text-[#005BFE] dark:text-indigo-400 uppercase font-bold">
           SPECTRA_LOG / {photo.id.slice(0, 8).toUpperCase()}
         </span>
         <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
       </div>
 
       {/* Main image presentation */}
-      <div className="relative bg-blue-50/20 aspect-[4/3] flex items-center justify-center overflow-hidden border-b border-blue-100">
+      <div className="relative bg-blue-50/20 dark:bg-zinc-950 aspect-[4/3] flex items-center justify-center overflow-hidden border-b border-blue-100 dark:border-indigo-950/40">
         <img
           src={photo.url}
           alt={photo.note || "Active Selfie Analysis"}
@@ -71,11 +71,11 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
       <div className="p-6 space-y-6">
         {/* User raw note */}
         {photo.note && (
-          <div className="space-y-1 block border-l-2 border-[#005BFE]/40 pl-4">
-            <span className="text-[9px] font-mono tracking-widest uppercase text-zinc-500 block font-bold">
+          <div className="space-y-1 block border-l-2 border-[#005BFE]/40 dark:border-indigo-500/40 pl-4">
+            <span className="text-[9px] font-mono tracking-widest uppercase text-zinc-500 dark:text-zinc-400 block font-bold">
               Mindset Note
             </span>
-            <p className="text-xs text-zinc-700 italic font-medium">
+            <p className="text-xs text-zinc-700 dark:text-zinc-300 italic font-medium">
               "{photo.note}"
             </p>
           </div>
@@ -83,11 +83,11 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
 
         {/* Loading of analysis details */}
         {photo.isAnalyzing ? (
-          <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 bg-white/40 border border-dashed border-blue-100">
+          <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 bg-white/40 dark:bg-slate-950/40 border border-dashed border-blue-100 dark:border-indigo-950/50 rounded-sm">
             <div className="h-6 w-6 border-2 border-[#005BFE] border-t-transparent rounded-full animate-spin"></div>
             <div className="space-y-1.5">
-              <h3 className="text-sm font-serif italic text-zinc-800">Refracting Style Dimensions</h3>
-              <p className="text-[9px] uppercase tracking-[0.2em] text-[#005BFE] font-mono font-bold">
+              <h3 className="text-sm font-serif italic text-zinc-800 dark:text-slate-200">Refracting Style Dimensions</h3>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-[#005BFE] dark:text-indigo-400 font-mono font-bold">
                 Running server-side style analyzer...
               </p>
             </div>
@@ -98,17 +98,17 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
             <div className="space-y-2">
               <div className="flex justify-between items-end">
                 <div>
-                  <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-zinc-400 block font-bold">
+                  <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-500 block font-bold">
                     Style Atmosphere
                   </span>
-                  <h3 className="text-2xl font-serif text-[#005BFE] italic tracking-wide mt-1 font-bold">
+                  <h3 className="text-2xl font-serif text-[#005BFE] dark:text-indigo-400 italic tracking-wide mt-1 font-bold">
                     {photo.analysis.mood}
                   </h3>
                 </div>
 
                 {/* Rating score badge */}
                 <div className="text-right">
-                  <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 block font-bold">
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-[#FF7830] block font-bold">
                     Vibe Synergy
                   </span>
                   <div className="flex items-center gap-1 mt-0.5 justify-end">
@@ -121,7 +121,7 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
               </div>
 
               {/* Progress Bar meter */}
-              <div className="w-full h-1 bg-blue-50 rounded-none overflow-hidden">
+              <div className="w-full h-1 bg-blue-50 dark:bg-slate-900 rounded-none overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-[#005BFE] to-[#FF7830] transition-all duration-1000"
                   style={{ width: `${photo.analysis.vibesRating}%` }}
@@ -130,14 +130,14 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
             </div>
 
             {/* Glowing Confidence Booster highlight */}
-            <div className="bg-[#FF7830]/10 border border-[#FF7830]/20 p-5 relative overflow-hidden rounded-sm">
+            <div className="bg-[#FF7830]/10 dark:bg-[#FF7830]/5 border border-[#FF7830]/20 p-5 relative overflow-hidden rounded-sm">
               <div className="absolute top-3 right-3 opacity-15">
                 <Sparkles className="h-10 w-10 text-[#FF7830]" />
               </div>
               <h4 className="text-[9px] font-mono uppercase tracking-widest text-[#FF7830] mb-2.5 font-bold">
                 EXCERPT_AFFIRMATION
               </h4>
-              <blockquote className="text-sm font-serif italic text-zinc-800 leading-relaxed pr-6 font-semibold">
+              <blockquote className="text-sm font-serif italic text-zinc-800 dark:text-zinc-200 leading-relaxed pr-6 font-semibold">
                 "{photo.analysis.confidenceBooster}"
               </blockquote>
             </div>
@@ -145,19 +145,19 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
             {/* Structured details: Style description vs accessories */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1.5">
               <div className="space-y-1.5">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 block font-bold">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 block font-bold">
                   Outfitting Coordinates
                 </span>
-                <p className="text-xs text-zinc-650 leading-relaxed font-sans font-medium">
+                <p className="text-xs text-zinc-650 dark:text-zinc-400 leading-relaxed font-sans font-medium">
                   {photo.analysis.outfitDescription}
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 block font-bold">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 block font-bold">
                   Aesthetic Synthesis
                 </span>
-                <p className="text-xs text-zinc-650 leading-relaxed font-sans font-medium">
+                <p className="text-xs text-zinc-650 dark:text-zinc-400 leading-relaxed font-sans font-medium">
                   {photo.analysis.styleFeedback}
                 </p>
               </div>
@@ -166,7 +166,7 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
             {/* Dominant analysis colors */}
             {photo.analysis.dominantColors && photo.analysis.dominantColors.length > 0 && (
               <div className="space-y-2.5 pt-2">
-                <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-zinc-400 block font-bold">
+                <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500 block font-bold">
                   Harmonious Chromas
                 </span>
                 <div className="grid grid-cols-4 sm:grid-cols-5 gap-2.5">
@@ -177,7 +177,7 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
                       className="group/swatch cursor-pointer text-center space-y-1.5"
                     >
                       <div
-                        className="aspect-square w-full border border-blue-100 transition-transform group-hover/swatch:scale-105 active:scale-95 shadow-sm relative flex items-center justify-center rounded-sm overflow-hidden"
+                        className="aspect-square w-full border border-blue-100 dark:border-indigo-950/60 transition-transform group-hover/swatch:scale-105 active:scale-95 shadow-sm relative flex items-center justify-center rounded-sm overflow-hidden"
                         style={{ backgroundColor: hex }}
                       >
                         {copiedColor === hex ? (
@@ -190,7 +190,7 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
                           </div>
                         )}
                       </div>
-                      <span className="block text-[10px] font-mono text-zinc-500 font-bold">
+                      <span className="block text-[10px] font-mono text-zinc-500 dark:text-zinc-450 font-bold">
                         {hex.toUpperCase()}
                       </span>
                     </div>
@@ -200,7 +200,7 @@ export function SelfieDetail({ photo }: SelfieDetailProps) {
             )}
 
             {/* Footnote meta */}
-            <div className="border-t border-blue-50 pt-4 flex flex-col sm:flex-row sm:items-center justify-between text-[10px] font-mono text-zinc-400 gap-2">
+            <div className="border-t border-blue-50 dark:border-indigo-950/45 pt-4 flex flex-col sm:flex-row sm:items-center justify-between text-[10px] font-mono text-zinc-400 dark:text-zinc-500 gap-2">
               <span className="uppercase tracking-widest font-semibold">
                 Timestamp: {photo.timestamp}
               </span>

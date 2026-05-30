@@ -12,6 +12,15 @@ body {
               linear-gradient(135deg, #f4f7fe 0%, #fff7f2 50%, #ebf1fe 100%);
   background-attachment: fixed;
   color: #1f2937;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+body.dark {
+  background: radial-gradient(circle at 12% 18%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+              radial-gradient(circle at 88% 82%, rgba(255, 120, 48, 0.12) 0%, transparent 45%),
+              linear-gradient(135deg, #04030a 0%, #0c0817 60%, #030107 100%);
+  background-attachment: fixed;
+  color: #f3f4f6;
 }
 
 /* Custom scrollbar styling for neutral editorial aesthetics */
