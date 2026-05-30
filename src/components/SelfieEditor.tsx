@@ -667,14 +667,14 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
   };
 
   return (
-    <div id="photo-editor-modal" className="fixed inset-0 z-50 bg-[#0C0C0C]/95 backdrop-blur-md flex flex-col justify-between overflow-hidden p-4 sm:p-6 lg:p-8 text-[#E5E5E5] font-sans">
+    <div id="photo-editor-modal" className="fixed inset-0 z-50 bg-white/95 backdrop-blur-md flex flex-col justify-between overflow-hidden p-4 sm:p-6 lg:p-8 text-zinc-800 font-sans">
       
       {/* Top Header Row - Editorial Aesthetic style */}
-      <div className="flex justify-between items-center border-b border-[#2A2A2A] pb-4 mb-4">
+      <div className="flex justify-between items-center border-b border-blue-100 pb-4 mb-4">
         <div>
-          <span className="text-[10px] tracking-[0.3em] uppercase opacity-50 block mb-1">MEME_ARCHIVE_01 / RENDER_LAB</span>
-          <h2 className="text-xl font-serif italic text-white flex items-center gap-2">
-            <Sparkles className="h-4.5 w-4.5 text-amber-400" />
+          <span className="text-[10px] tracking-[0.3em] uppercase block mb-1 text-[#FF7830] font-mono font-bold">MEME_ARCHIVE_01 / RENDER_LAB</span>
+          <h2 className="text-xl font-serif italic text-[#005BFE] flex items-center gap-2 font-bold">
+            <Sparkles className="h-4.5 w-4.5 text-[#FF7830]" />
             AI Portrait Studio
           </h2>
         </div>
@@ -683,8 +683,8 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
             type="button"
             onClick={handleUndo}
             disabled={historyIndex === 0}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#2A2A2A] text-xs font-mono transition-all ${
-              historyIndex === 0 ? "opacity-35 cursor-not-allowed" : "hover:bg-white hover:text-black hover:border-white"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-mono transition-all cursor-pointer font-bold ${
+              historyIndex === 0 ? "opacity-35 cursor-not-allowed border-blue-100 text-zinc-400 bg-zinc-50" : "border-blue-100 text-[#005BFE] hover:bg-[#005BFE] hover:text-white hover:border-[#005BFE] bg-white shadow-sm"
             }`}
           >
             <Undo className="h-3.5 w-3.5" />
@@ -694,7 +694,7 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
           <button
             type="button"
             onClick={onCancel}
-            className="p-1.5 hover:bg-[#2A2A2A] text-slate-400 hover:text-white rounded transition-all"
+            className="p-1.5 hover:bg-red-50 text-zinc-400 hover:text-red-500 rounded transition-all cursor-pointer border border-[#FF7830]/10"
             title="Cancel edits"
           >
             <X className="h-5 w-5" />
@@ -706,8 +706,8 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
       <div className="flex-1 flex flex-col lg:flex-row gap-6 overflow-hidden items-stretch py-2">
         
         {/* LEFT COLUMN: The Interactive Canvas & Viewfinder */}
-        <div className="flex-1 bg-[#0F0F0F] rounded border border-[#2A2A2A] relative flex items-center justify-center overflow-hidden p-4">
-          <div className="absolute top-3 left-4 text-[10px] opacity-40 font-mono tracking-widest uppercase">
+        <div className="flex-1 bg-blue-50/20 rounded border border-blue-105 relative flex items-center justify-center overflow-hidden p-4">
+          <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest uppercase text-[#005BFE] font-bold">
             FRAME__REC_0{historyIndex + 1}
           </div>
           
@@ -715,7 +715,7 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
             {/* The primary Canvas */}
             <canvas
               ref={mainCanvasRef}
-              className="max-w-full max-h-[60vh] h-auto object-contain shadow-2xl relative"
+              className="max-w-full max-h-[60vh] h-auto object-contain shadow-md relative border border-blue-50 bg-white"
               style={{
                 borderRadius: "2px",
                 filter: activeTab === "crop" ? "brightness(0.6)" : "none"
@@ -737,13 +737,13 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
             {/* INTERACTIVE CROP BOX OVERLAY */}
             {activeTab === "crop" && isCropActive && (
               <div
-                className="absolute border border-dashed border-amber-400 z-20 cursor-move"
+                className="absolute border-2 border-dashed border-[#FF7830] z-20 cursor-move"
                 style={{
                   left: `${cropBox.x}%`,
                   top: `${cropBox.y}%`,
                   width: `${cropBox.w}%`,
                   height: `${cropBox.h}%`,
-                  boxShadow: "0 0 0 4000px rgba(0, 0, 0, 0.55)"
+                  boxShadow: "0 0 0 4000px rgba(255, 255, 255, 0.45)"
                 }}
                 onMouseMove={handleCropMouseMove}
                 onMouseUp={handleCropMouseUp}
@@ -756,11 +756,11 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                 />
                 {/* Corner Resize Dragger handle */}
                 <div
-                  className="absolute bottom-0 right-0 w-4 h-4 bg-amber-400 border border-[#0C0C0C] cursor-se-resize shadow-md"
+                  className="absolute bottom-0 right-0 w-4 h-4 bg-[#FF7830] border border-white cursor-se-resize shadow-md"
                   onMouseDown={(e) => handleCropMouseDown(e, "resize")}
                 />
                 
-                <div className="absolute top-2 left-2 text-[8px] font-mono select-none text-white/90 bg-amber-500/80 px-1 py-0.5 rounded uppercase">
+                <div className="absolute top-2 left-2 text-[8px] font-mono select-none text-white bg-[#FF7830] px-1 py-0.5 rounded uppercase font-bold shadow-sm">
                   W:{Math.round(cropBox.w)}% H:{Math.round(cropBox.h)}%
                 </div>
               </div>
@@ -768,28 +768,28 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
           </div>
 
           <div className="absolute bottom-3 right-4 flex items-center gap-2">
-            <span className="text-[9px] font-mono uppercase bg-[#161616] border border-[#2A2A2A] px-2 py-0.5 rounded opacity-40">
+            <span className="text-[9px] font-mono uppercase bg-white border border-blue-105 px-2 py-0.5 rounded text-[#005BFE] font-bold shadow-sm">
               {rotation}° ROTATION
             </span>
-            <span className="text-[9px] font-mono uppercase bg-[#161616] border border-[#2A2A2A] px-2 py-0.5 rounded opacity-40">
+            <span className="text-[9px] font-mono uppercase bg-white border border-blue-105 px-2 py-0.5 rounded text-[#FF7830] font-bold shadow-sm">
               {brightness > 0 ? `+${brightness}` : brightness} BRIGHT
             </span>
           </div>
         </div>
 
         {/* RIGHT COLUMN: Professional Fine Styling Panel & Controls */}
-        <div className="w-full lg:w-96 flex flex-col justify-between border border-[#2A2A2A] bg-[#0A0A0A] p-5 rounded">
+        <div className="w-full lg:w-96 flex flex-col justify-between border border-blue-105 bg-white p-5 rounded shadow-sm">
           
           {/* Section Selector tabs */}
           <div className="space-y-4">
-            <div className="flex border-b border-[#2A2A2A] p-0.5 text-xs">
+            <div className="flex border-b border-blue-100 p-0.5 text-xs bg-blue-50/50 rounded-sm">
               <button
                 type="button"
                 onClick={() => setActiveTab("crop")}
-                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b transition-all ${
+                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b-2 transition-all cursor-pointer font-bold ${
                   activeTab === "crop"
-                    ? "border-white text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-white"
+                    ? "border-[#005BFE] text-[#005BFE]"
+                    : "border-transparent text-zinc-400 hover:text-[#005BFE]"
                 }`}
               >
                 Crop / Rotate
@@ -797,10 +797,10 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               <button
                 type="button"
                 onClick={() => setActiveTab("adjust")}
-                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b transition-all ${
+                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b-2 transition-all cursor-pointer font-bold ${
                   activeTab === "adjust"
-                    ? "border-white text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-white"
+                    ? "border-[#005BFE] text-[#005BFE]"
+                    : "border-transparent text-zinc-400 hover:text-[#005BFE]"
                 }`}
               >
                 Filters
@@ -808,10 +808,10 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               <button
                 type="button"
                 onClick={() => setActiveTab("eraser")}
-                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b transition-all ${
+                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b-2 transition-all cursor-pointer font-bold ${
                   activeTab === "eraser"
-                    ? "border-white text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-white"
+                    ? "border-[#FF7830] text-[#FF7830]"
+                    : "border-transparent text-zinc-400 hover:text-[#FF7830]"
                 }`}
               >
                 Eraser
@@ -819,10 +819,10 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               <button
                 type="button"
                 onClick={() => setActiveTab("ai")}
-                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b transition-all ${
+                className={`flex-1 py-2 text-[10px] font-mono uppercase tracking-wider text-center border-b-2 transition-all cursor-pointer font-bold bg-gradient-to-r ${
                   activeTab === "ai"
-                    ? "border-white text-white font-semibold"
-                    : "border-transparent text-slate-500 hover:text-white"
+                    ? "border-[#005BFE] text-[#005BFE]"
+                    : "border-transparent text-zinc-400 hover:text-[#005BFE]"
                 }`}
               >
                 AI Editor
@@ -835,19 +835,19 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               {/* Tab: Crop & Rotate */}
               {activeTab === "crop" && (
                 <div className="space-y-5 animate-fadeIn">
-                  <p className="text-[10px] uppercase tracking-widest opacity-45 leading-relaxed">
+                  <p className="text-[10px] uppercase tracking-widest text-[#005BFE] font-bold leading-relaxed">
                     Set formatting boundaries using the slider grids or rotation matrix levers.
                   </p>
                   
                   <div className="space-y-2">
-                    <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                    <label className="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-bold">
                       Step Orientation Levers
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() => handleRotate("left")}
-                        className="py-2 px-3 border border-[#2A2A2A] hover:bg-white hover:text-black transition-colors rounded text-xs flex items-center justify-center gap-1.5 font-mono"
+                        className="py-2 px-3 border border-blue-105 bg-white text-zinc-700 hover:bg-[#005BFE] hover:text-white hover:border-[#005BFE] transition-colors rounded text-xs flex items-center justify-center gap-1.5 font-mono font-bold cursor-pointer shadow-sm"
                       >
                         <RotateCcw className="h-3.5 w-3.5" />
                         -90° LEFT
@@ -855,7 +855,7 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                       <button
                         type="button"
                         onClick={() => handleRotate("right")}
-                        className="py-2 px-3 border border-[#2A2A2A] hover:bg-white hover:text-black transition-colors rounded text-xs flex items-center justify-center gap-1.5 font-mono"
+                        className="py-2 px-3 border border-blue-105 bg-white text-zinc-700 hover:bg-[#005BFE] hover:text-white hover:border-[#005BFE] transition-colors rounded text-xs flex items-center justify-center gap-1.5 font-mono font-bold cursor-pointer shadow-sm"
                       >
                         <RotateCw className="h-3.5 w-3.5" />
                         +90° RIGHT
@@ -863,16 +863,16 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-[#1C1C1C] space-y-3">
+                  <div className="pt-2 border-t border-blue-100 space-y-3">
                     <button
                       type="button"
                       onClick={applyCropAction}
-                      className="w-full py-2.5 bg-white text-black hover:bg-transparent hover:text-white border border-white transition-all text-xs font-semibold rounded flex items-center justify-center gap-2"
+                      className="w-full py-2.5 bg-[#005BFE] text-white hover:bg-[#0046C7] border border-[#005BFE] hover:border-[#0046C7] transition-all text-xs font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 cursor-pointer shadow-md"
                     >
                       <Crop className="h-4 w-4" />
                       Apply Selected Crop Box
                     </button>
-                    <p className="text-[9px] text-center text-slate-500 italic">
+                    <p className="text-[9px] text-center text-zinc-400 italic font-mono font-bold">
                       Drag crop selection borders over preview on the left
                     </p>
                   </div>
@@ -882,15 +882,15 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               {/* Tab: General Adjust Contrast & Brightness */}
               {activeTab === "adjust" && (
                 <div className="space-y-4 animate-fadeIn">
-                  <p className="text-[10px] uppercase tracking-widest opacity-45">
+                  <p className="text-[10px] uppercase tracking-widest text-[#005BFE] font-bold">
                     Modulate standard luma and depth metrics. Double click key trackers to reset coefficients.
                   </p>
 
                   {/* Brightness slider */}
                   <div className="space-y-1">
-                    <div className="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                    <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500 font-bold">
                       <span className="flex items-center gap-1">
-                        <Sun className="h-3 w-3" />
+                        <Sun className="h-3 w-3 text-[#FF7830]" />
                         BRIGHTNESS
                       </span>
                       <span>{brightness > 0 ? `+${brightness}` : brightness}</span>
@@ -901,15 +901,15 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                       max="100"
                       value={brightness}
                       onChange={(e) => setBrightness(parseInt(e.target.value))}
-                      className="w-full accent-white bg-[#2A2A2A] h-1 rounded"
+                      className="w-full accent-[#005BFE] bg-blue-50/50 h-1.5 rounded cursor-pointer"
                     />
                   </div>
 
                   {/* Contrast slider */}
                   <div className="space-y-1">
-                    <div className="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                    <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500 font-bold">
                       <span className="flex items-center gap-1">
-                        <Contrast className="h-3 w-3" />
+                        <Contrast className="h-3 w-3 text-[#005BFE]" />
                         CONTRAST
                       </span>
                       <span>{contrast > 0 ? `+${contrast}` : contrast}</span>
@@ -920,19 +920,19 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                       max="100"
                       value={contrast}
                       onChange={(e) => setContrast(parseInt(e.target.value))}
-                      className="w-full accent-white bg-[#2A2A2A] h-1 rounded"
+                      className="w-full accent-[#005BFE] bg-blue-50/50 h-1.5 rounded cursor-pointer"
                     />
                   </div>
 
                   {/* Filter reset helper row */}
-                  <div className="pt-4 border-t border-[#1C1C1C] flex justify-between items-center gap-2">
+                  <div className="pt-4 border-t border-blue-50 flex justify-between items-center gap-2">
                     <button
                       type="button"
                       onClick={() => {
                         setBrightness(0);
                         setContrast(0);
                       }}
-                      className="text-[9px] font-mono uppercase bg-[#181818] hover:bg-[#2A2A2A] border border-[#2A2A2A] px-2.5 py-1.5 rounded text-slate-400 hover:text-white transition-all"
+                      className="text-[9px] font-mono uppercase bg-white hover:bg-neutral-50 border border-blue-105 px-2.5 py-1.5 rounded text-zinc-500 hover:text-zinc-800 transition-all cursor-pointer font-bold shadow-sm"
                     >
                       Clear Sliders
                     </button>
@@ -940,7 +940,7 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                     <button
                       type="button"
                       onClick={bakeAdjustments}
-                      className="bg-white/10 hover:bg-emerald-500/10 text-slate-200 hover:text-emerald-400 border border-[#2A2A2A] hover:border-emerald-500/30 px-3 py-1.5 rounded text-[10px] font-mono uppercase transition-all"
+                      className="bg-[#005BFE] hover:bg-[#0046C7] text-white border border-[#005BFE] px-3 py-1.5 rounded text-[10px] font-mono uppercase transition-all cursor-pointer font-bold shadow-md"
                     >
                       Bake Changes
                     </button>
@@ -951,18 +951,18 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               {/* Tab: Real Content-Aware Magic Eraser brush */}
               {activeTab === "eraser" && (
                 <div className="space-y-4 animate-fadeIn">
-                  <div className="flex gap-2 items-start bg-[#1C0000]/40 border border-[#EF4444]/20 p-3 rounded">
-                    <Eraser className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
+                  <div className="flex gap-2 items-start bg-[#FF7830]/10 border border-[#FF7830]/20 p-3 rounded">
+                    <Eraser className="h-4 w-4 text-[#FF7830] shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="text-[10px] font-mono uppercase text-rose-400 tracking-wider">Inpaint Magic Wand</h4>
-                      <p className="text-[9px] text-slate-400 leading-normal mt-0.5">
+                      <h4 className="text-[10px] font-mono uppercase text-[#FF7830] tracking-wider font-bold">Inpaint Magic Wand</h4>
+                      <p className="text-[9px] text-zinc-550 leading-normal mt-0.5">
                         Brush over background photobombs, wrinkles, or styling elements. The AI boundaries will substitute surrounding pixels elegantly!
                       </p>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                    <div className="flex justify-between items-center text-[10px] font-mono text-zinc-400 font-bold">
                       <span className="flex items-center gap-1">
                         <Brush className="h-3.5 w-3.5" />
                         BRUSH SIZE
@@ -975,15 +975,15 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                       max="80"
                       value={brushSize}
                       onChange={(e) => setBrushSize(parseInt(e.target.value))}
-                      className="w-full accent-rose-500 bg-[#2A2A2A] h-1 rounded text-rose-600"
+                      className="w-full accent-[#FF7830] bg-blue-50/50 h-1.5 rounded text-rose-600 cursor-pointer"
                     />
                   </div>
 
-                  <div className="pt-2 border-t border-[#1C1C1C] flex gap-2">
+                  <div className="pt-2 border-t border-blue-50 flex gap-2">
                     <button
                       type="button"
                       onClick={runMagicInpaintEraser}
-                      className="flex-1 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white text-[11px] font-bold tracking-widest uppercase transition-all rounded flex items-center justify-center gap-1.5"
+                      className="flex-1 py-2 bg-[#FF7830] hover:bg-[#E05E1A] active:scale-95 text-white text-[11px] font-bold tracking-widest uppercase transition-all rounded flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                     >
                       <Wand2 className="h-4 w-4" />
                       Erase Marked Area
@@ -991,7 +991,7 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                     <button
                       type="button"
                       onClick={clearEraserMask}
-                      className="py-2 px-3 border border-[#2A2A2A] hover:bg-[#1C1C1C] transition-colors rounded text-slate-400 text-[10px] font-mono uppercase"
+                      className="py-2 px-3 border border-blue-105 hover:bg-neutral-50 transition-colors rounded text-zinc-500 text-[10px] font-mono uppercase font-bold cursor-pointer bg-white shadow-sm"
                     >
                       Clear
                     </button>
@@ -1002,7 +1002,7 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
               {/* Tab: Advanced Prompt-based AI Style transformations */}
               {activeTab === "ai" && (
                 <div className="space-y-4 animate-fadeIn">
-                  <p className="text-[10px] uppercase tracking-widest opacity-45">
+                  <p className="text-[10px] uppercase tracking-widest text-[#005BFE] font-bold">
                     Describe any filter look and let Gemini configure exact tone color schemes for you!
                   </p>
 
@@ -1011,11 +1011,11 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                     onChange={(e) => setAiPromptText(e.target.value)}
                     placeholder="Try: 'Cozy film camera look with heavy contrast', 'High-key sci-fi neon styling', 'Dark moody aesthetic'..."
                     rows={3}
-                    className="w-full text-xs p-3 border border-[#2A2A2A] bg-[#0E0E0E] text-slate-100 rounded focus:ring-1 focus:ring-white outline-none transition-all placeholder:text-slate-600 resize-none font-mono"
+                    className="w-full text-xs p-3 border border-blue-100 bg-white text-zinc-800 rounded focus:ring-1 focus:ring-[#005BFE]/20 focus:border-[#005BFE] outline-none transition-all placeholder:text-zinc-400 font-mono"
                   />
 
                   {aiError && (
-                    <div className="bg-rose-955/20 border border-rose-500/20 p-2 text-[9px] text-rose-300 rounded flex gap-1.5 items-center">
+                    <div className="bg-rose-50 border border-rose-100 p-2 text-[9px] text-rose-600 rounded flex gap-1.5 items-center font-bold">
                       <AlertCircle className="h-3.5 w-3.5 text-rose-500 shrink-0" />
                       <span>{aiError}</span>
                     </div>
@@ -1025,24 +1025,24 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
                     type="button"
                     onClick={handleAiPhotoEditSubmit}
                     disabled={isAiLoading || !aiPromptText.trim()}
-                    className="w-full py-2 bg-gradient-to-r from-amber-500/20 to-teal-500/20 hover:from-amber-500/30 hover:to-teal-500/30 border border-[#2A2A2A] hover:border-white text-white text-xs font-mono uppercase tracking-wider rounded transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-2 bg-gradient-to-r from-[#005BFE] to-[#FF7830] border border-[#005BFE] hover:opacity-95 text-white text-xs font-mono uppercase tracking-wider rounded transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer shadow-sm font-bold"
                   >
                     {isAiLoading ? (
                       <>
-                        <RefreshCw className="h-3.5 w-3.5 animate-spin text-amber-500" />
+                        <RefreshCw className="h-3.5 w-3.5 animate-spin text-white" />
                         AI Style Matching...
                       </>
                     ) : (
                       <>
-                        <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+                        <Sparkles className="h-3.5 w-3.5 text-white" />
                         Generate Style Matrix
                       </>
                     )}
                   </button>
 
                   {aiAppliedFeedback && (
-                    <div className="border-t border-[#1C1C1C] pt-2">
-                      <p className="text-[10px] text-amber-300/80 leading-normal italic font-serif">
+                    <div className="border-t border-blue-50 pt-2">
+                      <p className="text-[10px] text-[#FF7830] leading-normal italic font-serif font-bold">
                         "{aiAppliedFeedback}"
                       </p>
                     </div>
@@ -1054,16 +1054,16 @@ export function SelfieEditor({ imageUrl, onSave, onCancel }: SelfieEditorProps) 
           </div>
 
           {/* Action Footer baking section */}
-          <div className="border-t border-[#2A2A2A] pt-4 mt-4 space-y-2">
+          <div className="border-t border-blue-100 pt-4 mt-4 space-y-2">
             <button
               type="button"
               onClick={handleFinishAndSave}
-              className="w-full py-3 bg-white text-black hover:bg-neutral-200 text-xs font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 transition-all shadow-md active:scale-[0.98]"
+              className="w-full py-3 bg-[#005BFE] text-white hover:bg-[#0046C7] text-xs font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 transition-all shadow-md active:scale-[0.98] cursor-pointer"
             >
               <Check className="h-4 w-4" />
               CONFIRM ALL EDITS
             </button>
-            <p className="text-[8px] text-center font-mono opacity-30">
+            <p className="text-[8px] text-center font-mono text-zinc-400 font-bold">
               CLICK CONFIRM TO FLATTEN ALL COMPACT LAYERS
             </p>
           </div>

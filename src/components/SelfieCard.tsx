@@ -10,7 +10,8 @@ import {
   RefreshCw, 
   Palette, 
   Compass, 
-  AlertCircle 
+  AlertCircle,
+  Download
 } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -33,6 +34,16 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
     minute: "2-digit",
   });
 
+  const handleDownload = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const link = document.createElement("a");
+    link.href = photo.url;
+    link.download = `style_portrait_${photo.id.slice(0, 8)}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const analysis = photo.analysis;
 
   return (
@@ -43,32 +54,32 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`bg-[#0F0F0F] border transition-all duration-300 rounded-sm overflow-hidden flex flex-col group cursor-pointer ${
-        isSelected ? "border-white ring-1 ring-white" : "border-[#1F1F1F] hover:border-zinc-500"
+      className={`bg-white/80 border transition-all duration-300 rounded-sm overflow-hidden flex flex-col group cursor-pointer shadow-sm ${
+        isSelected ? "border-[#005BFE] ring-1 ring-[#005BFE]/30" : "border-blue-100/80 hover:border-blue-300"
       }`}
       onClick={() => onSelect?.()}
     >
       {/* Visual Frame */}
-      <div className="relative aspect-[4/5] bg-neutral-950 overflow-hidden select-none">
+      <div className="relative aspect-[4/5] bg-blue-50/50 overflow-hidden select-none">
         {/* Monochromatic state with transition into full color on hover */}
         <img
           src={photo.url}
           alt={analysis?.mood || "Captured Selfie Snapshot"}
-          className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0 grayscale"
+          className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0 grayscale-[20%]"
         />
 
         {/* Framing borders overlay mimicking old vintage glass negatives */}
-        <div className="absolute inset-4 border border-white/5 pointer-events-none transition-all duration-500 group-hover:border-white/10"></div>
+        <div className="absolute inset-4 border border-blue-100/10 pointer-events-none transition-all duration-500 group-hover:border-[#005BFE]/20"></div>
         
         {/* Index Serial indicator tag */}
-        <div className="absolute top-4 left-4 bg-black/65 backdrop-blur-sm border border-[#2A2A2A] text-[9px] font-mono text-neutral-400 px-2 py-0.5 tracking-widest uppercase">
+        <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-sm border border-blue-100 text-[9px] font-mono text-[#005BFE] font-bold px-2 py-0.5 tracking-widest uppercase shadow-sm">
           FRAME_{photo.id.slice(-4).toUpperCase()}
         </div>
 
         {/* Hover Vibes Percentage Badge */}
         {analysis?.vibesRating && (
-          <div className="absolute top-4 right-4 bg-amber-500 text-black font-mono font-bold text-[10px] tracking-widest px-2.5 py-1 rounded-sm shadow-lg flex items-center gap-1">
-            <Heart className="h-3 w-3 fill-current text-black animate-pulse" />
+          <div className="absolute top-4 right-4 bg-[#FF7830] text-white font-mono font-bold text-[10px] tracking-widest px-2.5 py-1 rounded-sm shadow-md flex items-center gap-1">
+            <Heart className="h-3 w-3 fill-current text-white animate-pulse" />
             {analysis.vibesRating}% GLOW
           </div>
         )}
@@ -78,7 +89,7 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); onEdit(photo); }}
-            className="flex-1 py-1.5 bg-white text-black hover:bg-[#E5E5E5] text-[9px] font-mono font-bold tracking-widest uppercase rounded-sm flex items-center justify-center gap-1 shadow-md transition-all active:scale-95 cursor-pointer"
+            className="flex-1 py-1.5 bg-[#005BFE] text-white hover:bg-[#0046C7] text-[9px] font-mono font-bold tracking-widest uppercase rounded-sm flex items-center justify-center gap-1 shadow-md transition-all active:scale-95 cursor-pointer"
           >
             <Edit3 className="h-3 w-3" />
             Edit Look
@@ -86,8 +97,17 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
           
           <button
             type="button"
+            onClick={handleDownload}
+            className="px-2.5 py-1.5 bg-white/95 text-zinc-650 hover:text-[#005BFE] hover:bg-blue-50 rounded-sm shadow-md transition-all border border-blue-100 cursor-pointer"
+            title="Download full quality photo"
+          >
+            <Download className="h-3.5 w-3.5" />
+          </button>
+
+          <button
+            type="button"
             onClick={(e) => { e.stopPropagation(); onDelete(photo.id); }}
-            className="px-2.5 py-1.5 bg-black/85 text-rose-400 hover:text-rose-300 hover:bg-rose-950/20 rounded-sm shadow-md transition-all border border-[#2A2A2A] hover:border-rose-950/50 cursor-pointer"
+            className="px-2.5 py-1.5 bg-white/95 text-rose-600 hover:text-rose-500 hover:bg-rose-50 rounded-sm shadow-md transition-all border border-blue-100 cursor-pointer"
             title="Remove from journal"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -100,23 +120,23 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
         
         {/* Meta Timeline Row */}
         <div>
-          <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500 mb-1.5">
+          <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 mb-1.5">
             <span className="flex items-center gap-1">
               <Calendar className="h-3 w-3" />
               {dateStr}
             </span>
-            <span className="text-neutral-500 tracking-widest">
+            <span className="text-zinc-400 tracking-widest font-bold">
               SERIES_{photo.analysis ? "ANALYZED" : "UNPROCESSED"}
             </span>
           </div>
 
           {/* User Note Diary content block */}
           {photo.note ? (
-            <p className="text-xs text-neutral-300 font-sans leading-relaxed border-l border-neutral-700/50 pl-2.5 italic my-2">
+            <p className="text-xs text-zinc-700 font-sans leading-relaxed border-l-2 border-[#005BFE]/40 pl-2.5 italic my-2">
               "{photo.note}"
             </p>
           ) : (
-            <p className="text-xs text-neutral-500 font-mono italic my-2 text-center py-1">
+            <p className="text-xs text-zinc-400 font-mono italic my-2 text-center py-1 bg-blue-50/20">
               No attached commentary.
             </p>
           )}
@@ -124,27 +144,27 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
 
         {/* Gemini Feedback Details */}
         {photo.isAnalyzing ? (
-          <div className="bg-[#121212] border border-[#222] p-4 text-center space-y-2 rounded-sm py-6">
-            <RefreshCw className="h-5 w-5 animate-spin mx-auto text-amber-500" />
-            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 animate-pulse">
-              Consulting Gemini Style Oracle...
+          <div className="bg-blue-50/50 border border-blue-100/50 p-4 text-center space-y-2 rounded-sm py-6 shadow-inner">
+            <RefreshCw className="h-5 w-5 animate-spin mx-auto text-[#005BFE]" />
+            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#005BFE] font-bold animate-pulse">
+              Consulting Style Oracle...
             </p>
           </div>
         ) : photo.error ? (
-          <div className="bg-rose-950/10 border border-rose-900/30 p-3.5 text-xs text-rose-300 rounded-sm">
+          <div className="bg-rose-50 border border-rose-100 p-3.5 text-xs text-rose-700 rounded-sm shadow-sm">
             <div className="flex items-start gap-1.5">
-              <AlertCircle className="h-4 w-4 text-rose-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="h-4 w-4 text-rose-500 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold font-mono text-[10px] uppercase tracking-widest">
+                <p className="font-semibold font-mono text-[10px] uppercase tracking-widest text-rose-800">
                   Oracle Desync Error
                 </p>
-                <p className="text-[10px] opacity-80 mt-1 leading-relaxed">
+                <p className="text-[10px] opacity-90 mt-1 leading-relaxed text-rose-650">
                   {photo.error}
                 </p>
                 <button
                   type="button"
                   onClick={() => onReAnalyze(photo.id)}
-                  className="mt-2 text-[9px] font-mono uppercase text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-all"
+                  className="mt-2 text-[9px] font-mono uppercase text-[#005BFE] hover:text-[#0046C7] flex items-center gap-1 transition-all font-bold"
                 >
                   <RefreshCw className="h-3 w-3" />
                   Retry Vision Call
@@ -153,25 +173,25 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
             </div>
           </div>
         ) : analysis ? (
-          <div className="space-y-4 pt-3 border-t border-[#1C1C1C]">
+          <div className="space-y-4 pt-3 border-t border-blue-50">
             
             {/* Primary Vibe/Mood */}
             <div>
-              <p className="text-[9px] font-mono uppercase tracking-widest text-neutral-500">
+              <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400">
                 ASTRON_ENERGY_VIBE
               </p>
-              <h4 className="text-sm font-semibold font-sans text-neutral-200 mt-0.5 flex items-center gap-1.5">
-                <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <h4 className="text-sm font-semibold font-sans text-[#005BFE] mt-0.5 flex items-center gap-1.5">
+                <Sparkles className="h-3.5 w-3.5 text-[#FF7830]" />
                 {analysis.mood}
               </h4>
             </div>
 
             {/* Glowing friendly confidence booster */}
-            <div className="bg-[#151515] border-l-2 border-amber-500 p-3 rounded-r-sm">
-              <p className="text-[9px] font-mono uppercase text-amber-400/80 tracking-widest flex items-center gap-1">
-                <Compass className="h-3.5 w-3.5 text-amber-500" /> Style confidence oracle
+            <div className="bg-[#FF7830]/10 border-l-2 border-[#FF7830] p-3 rounded-r-sm">
+              <p className="text-[9px] font-mono uppercase text-[#FF7830] font-bold tracking-widest flex items-center gap-1">
+                <Compass className="h-3.5 w-3.5 text-[#FF7830]" /> Style confidence oracle
               </p>
-              <p className="text-xs font-serif italic text-neutral-200 leading-relaxed mt-1">
+              <p className="text-xs font-serif italic text-zinc-805 leading-relaxed mt-1">
                 "{analysis.confidenceBooster}"
               </p>
             </div>
@@ -186,20 +206,20 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
               >
                 {/* Outfit Description */}
                 <div>
-                  <p className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 mb-0.5">
+                  <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 mb-0.5 font-bold">
                     OUTFIT_COORDS
                   </p>
-                  <p className="text-neutral-350 font-sans">
+                  <p className="text-zinc-600 font-sans font-medium">
                     {analysis.outfitDescription}
                   </p>
                 </div>
 
                 {/* Style Feedback */}
                 <div>
-                  <p className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 mb-0.5">
+                  <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400 mb-0.5 font-bold">
                     RESONANCE_METRICS
                   </p>
-                  <p className="text-neutral-350 font-sans">
+                  <p className="text-zinc-600 font-sans font-medium">
                     {analysis.styleFeedback}
                   </p>
                 </div>
@@ -207,7 +227,7 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
                 {/* Custom extracted color palettes */}
                 {analysis.dominantColors && analysis.dominantColors.length > 0 && (
                   <div>
-                    <p className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 mb-1.5 flex items-center gap-1">
+                    <p className="text-[9px] font-mono uppercase tracking-widest text-[#005BFE] font-bold mb-1.5 flex items-center gap-1">
                       <Palette className="h-3.5 w-3.5" />
                       Extracted Tone Chart
                     </p>
@@ -215,7 +235,7 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
                       {analysis.dominantColors.map((color, i) => (
                         <div 
                           key={i} 
-                          className="flex items-center gap-1 bg-[#141414] border border-[#222] pr-1.5 py-0.5 rounded-full cursor-copy"
+                          className="flex items-center gap-1 bg-white border border-blue-50 pr-1.5 py-0.5 rounded-full cursor-copy shadow-sm hover:border-[#FF7830] transition-colors"
                           title={`Click to copy color hex ${color}`}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -223,10 +243,10 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
                           }}
                         >
                           <span 
-                            className="h-3 w-3 rounded-full border border-white/10 block" 
+                            className="h-3 w-3 rounded-full border border-blue-100 block" 
                             style={{ backgroundColor: color }}
                           />
-                          <span className="text-[9px] font-mono text-neutral-400">
+                          <span className="text-[9px] font-mono text-zinc-500 font-bold">
                             {color}
                           </span>
                         </div>
@@ -242,7 +262,7 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setIsExpanding(!isExpanding); }}
-                className="text-[9px] font-mono uppercase text-nowrap tracking-wider text-neutral-400 hover:text-white transition-all underline decoration-neutral-700 decoration-dashed underline-offset-4 cursor-pointer"
+                className="text-[9px] font-mono uppercase text-nowrap tracking-wider text-zinc-500 hover:text-[#005BFE] transition-all underline decoration-[#005BFE]/30 decoration-dashed underline-offset-4 cursor-pointer"
               >
                 {isExpanding ? "Collapse Details" : "Inspect Analytics →"}
               </button>
@@ -251,9 +271,9 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
                 {analysis.tags?.slice(0, 2).map((tag, i) => (
                   <span 
                     key={i} 
-                    className="text-[8px] font-mono uppercase tracking-widest text-[#AAA] bg-[#161616] px-2 py-0.5 rounded-sm border border-[#252525] flex items-center gap-0.5"
+                    className="text-[8px] font-mono uppercase tracking-widest text-[#005BFE] bg-[#005BFE]/10 px-2 py-0.5 rounded-sm border border-blue-100 flex items-center gap-0.5 font-bold"
                   >
-                    <Tag className="h-2 w-2 text-neutral-500" />
+                    <Tag className="h-2 w-2 text-[#005BFE]/70" />
                     {tag.startsWith("#") ? tag : `#${tag}`}
                   </span>
                 ))}
@@ -267,9 +287,9 @@ export function SelfieCard({ photo, onDelete, onEdit, onReAnalyze, isSelected = 
             <button
               type="button"
               onClick={() => onReAnalyze(photo.id)}
-              className="w-full py-2 bg-neutral-900 border border-[#222] hover:border-neutral-500 hover:bg-neutral-850 text-neutral-300 text-[10px] font-mono uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2"
+              className="w-full py-2 bg-[#005BFE] border border-blue-100 hover:bg-[#0046C7] text-white text-[10px] font-mono uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2 font-bold shadow-sm cursor-pointer"
             >
-              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <Sparkles className="h-3.5 w-3.5 text-[#FF7830]" />
               Perform Vision Scan
             </button>
           </div>

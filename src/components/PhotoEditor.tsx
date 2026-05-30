@@ -380,16 +380,16 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
 
   return (
     <div 
-      className="fixed inset-0 min-h-screen z-[100] bg-[#0C0C0C]/95 backdrop-blur-md flex flex-col justify-between text-[#E5E5E5] font-sans antialiased p-4 sm:p-8"
+      className="fixed inset-0 min-h-screen z-[100] bg-white/95 backdrop-blur-md flex flex-col justify-between text-zinc-850 font-sans antialiased p-4 sm:p-8"
       ref={containerRef}
     >
       {/* Top Header Controls */}
-      <div className="flex items-center justify-between border-b border-[#2A2A2A] pb-4 mb-4">
+      <div className="flex items-center justify-between border-b border-blue-100 pb-4 mb-4">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.4em] text-amber-500/80 font-mono">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-[#FF7830] font-mono font-bold">
             Photo Studio Suite
           </span>
-          <h2 className="text-xl font-serif italic tracking-wide mt-1">
+          <h2 className="text-xl font-serif italic tracking-wide mt-1 text-[#005BFE] font-bold">
             Configure Aesthetic Portrait
           </h2>
         </div>
@@ -398,7 +398,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
           <button
             type="button"
             onClick={initializeCanvas.bind(null, originalImage!)}
-            className="flex items-center gap-1.5 px-3 py-1.5 border border-[#2A2A2A] text-[10px] uppercase tracking-widest hover:border-white transition-all rounded-sm font-mono"
+            className="flex items-center gap-1.5 px-3 py-1.5 border border-blue-100 text-[#005BFE] text-[10px] uppercase tracking-widest hover:border-[#005BFE] transition-all rounded-sm font-mono font-bold bg-white cursor-pointer shadow-sm"
             title="Reset to Original Portrait uploaded"
             disabled={isProcessing || !originalImage}
           >
@@ -409,7 +409,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
           <button
             type="button"
             onClick={onClose}
-            className="p-1 px-2 border border-[#2A2A2A] hover:border-rose-500 hover:text-rose-400 transition-all rounded-sm"
+            className="p-1 px-2 border border-blue-100 hover:border-rose-450 text-zinc-400 hover:text-rose-600 transition-all rounded-sm bg-white cursor-pointer shadow-sm"
             title="Discard edits and exit"
           >
             <X className="h-4 w-4" />
@@ -421,13 +421,13 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center justify-center my-4 overflow-hidden">
         
         {/* Editor Main Canvas Stage (Col 1-8) */}
-        <div className="lg:col-span-8 flex flex-col items-center justify-center relative bg-[#060606] border border-[#1C1C1C] rounded-md py-8 px-4 h-[350px] sm:h-[450px]">
+        <div className="lg:col-span-8 flex flex-col items-center justify-center relative bg-blue-50/20 border border-blue-105 rounded-md py-8 px-4 h-[350px] sm:h-[450px]">
           
-          <div className="relative overflow-hidden shadow-2xl max-w-full">
+          <div className="relative overflow-hidden shadow-md max-w-full rounded-sm">
             {/* Overlay to show interactive Crop Box when Crop Mode is Active */}
             {mode === "crop" && (
               <div 
-                className="absolute inset-0 pointer-events-none z-10 border-2 border-dashed border-amber-500/50"
+                className="absolute inset-0 pointer-events-none z-10 border-2 border-dashed border-[#FF7830]/80"
                 style={{
                   top: `${cropBox.y}%`,
                   left: `${cropBox.x}%`,
@@ -436,14 +436,14 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                 }}
               >
                 {/* Crop coordinates handles */}
-                <span className="absolute -top-1.5 -left-1.5 h-3 w-3 bg-amber-500 rounded-full"></span>
-                <span className="absolute -top-1.5 -right-1.5 h-3 w-3 bg-amber-500 rounded-full"></span>
-                <span className="absolute -bottom-1.5 -left-1.5 h-3 w-3 bg-amber-500 rounded-full"></span>
-                <span className="absolute -bottom-1.5 -right-1.5 h-3 w-3 bg-amber-500 rounded-full"></span>
-                <span className="absolute inset-x-0 top-1/3 border-b border-amber-500/25"></span>
-                <span className="absolute inset-x-0 bottom-1/3 border-b border-amber-500/25"></span>
-                <span className="absolute inset-y-0 left-1/3 border-r border-amber-500/25"></span>
-                <span className="absolute inset-y-0 right-1/3 border-r border-amber-500/25"></span>
+                <span className="absolute -top-1.5 -left-1.5 h-3 w-3 bg-[#FF7830] rounded-full"></span>
+                <span className="absolute -top-1.5 -right-1.5 h-3 w-3 bg-[#FF7830] rounded-full"></span>
+                <span className="absolute -bottom-1.5 -left-1.5 h-3 w-3 bg-[#FF7830] rounded-full"></span>
+                <span className="absolute -bottom-1.5 -right-1.5 h-3 w-3 bg-[#FF7830] rounded-full"></span>
+                <span className="absolute inset-x-0 top-1/3 border-b border-[#FF7830]/30"></span>
+                <span className="absolute inset-x-0 bottom-1/3 border-b border-[#FF7830]/30"></span>
+                <span className="absolute inset-y-0 left-1/3 border-r border-[#FF7830]/30"></span>
+                <span className="absolute inset-y-0 right-1/3 border-r border-[#FF7830]/30"></span>
               </div>
             )}
 
@@ -465,12 +465,12 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
             {/* Core Image Preview Render Canvas */}
             <canvas 
               ref={canvasRef} 
-              className="max-w-full block bg-[#0F0F0F]"
+              className="max-w-full block bg-white border border-blue-50"
             />
           </div>
 
           {/* Subtext info indicators */}
-          <div className="mt-4 flex items-center gap-6 text-[10px] font-mono text-[#555]">
+          <div className="mt-4 flex items-center gap-6 text-[10px] font-mono text-[#005BFE] font-bold">
             <span>active_lens: {mode.toUpperCase()}</span>
             <span>rotation: {rotation}°</span>
             <span>brightness: {brightness}%</span>
@@ -479,9 +479,9 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
 
           {/* Processing Indicator HUD overlay */}
           {isProcessing && (
-            <div className="absolute inset-0 bg-black/75 z-50 flex flex-col items-center justify-center">
-              <RefreshCw className="h-8 w-8 text-amber-500 animate-spin mb-3" />
-              <p className="text-xs font-mono tracking-widest text-[#AAA] animate-pulse">
+            <div className="absolute inset-0 bg-white/80 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
+              <RefreshCw className="h-8 w-8 text-[#005BFE] animate-spin mb-3" />
+              <p className="text-xs font-mono tracking-widest text-zinc-700 font-bold animate-pulse">
                 ASTRO_ENGINE: RENDERING_TRANSFORM...
               </p>
             </div>
@@ -489,20 +489,20 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
         </div>
 
         {/* Sidebar Tool Cabin (Col 9-12) */}
-        <div className="lg:col-span-4 self-stretch flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[#2A2A2A] pt-6 lg:pt-0 lg:pl-6 space-y-6 overflow-y-auto">
+        <div className="lg:col-span-4 self-stretch flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-blue-100 pt-6 lg:pt-0 lg:pl-6 space-y-6 overflow-y-auto">
           
           <div className="space-y-6">
-            <span className="block text-[10px] uppercase tracking-[0.3em] text-slate-500 decoration-amber-500 mb-2">
+            <span className="block text-[10px] uppercase tracking-[0.3em] text-[#005BFE] font-bold mb-2">
               Studio Tool Deck
             </span>
 
             {/* Mode selection buttons */}
-            <div className="grid grid-cols-4 gap-2 bg-[#121212] p-1 border border-[#222] rounded-sm">
+            <div className="grid grid-cols-4 gap-2 bg-blue-50/50 p-1 border border-blue-100 rounded-sm">
               <button
                 type="button"
                 onClick={() => setMode("adjust")}
-                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 ${
-                  mode === "adjust" ? "bg-white text-black font-bold" : "text-[#888] hover:text-white"
+                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 cursor-pointer ${
+                  mode === "adjust" ? "bg-[#005BFE] text-white font-bold shadow-sm" : "text-zinc-500 hover:text-[#005BFE]"
                 }`}
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" />
@@ -511,8 +511,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
               <button
                 type="button"
                 onClick={() => setMode("crop")}
-                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 ${
-                  mode === "crop" ? "bg-white text-black font-bold" : "text-[#888] hover:text-white"
+                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 cursor-pointer ${
+                  mode === "crop" ? "bg-[#005BFE] text-white font-bold shadow-sm" : "text-zinc-500 hover:text-[#005BFE]"
                 }`}
               >
                 <Scissors className="h-3.5 w-3.5" />
@@ -521,8 +521,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
               <button
                 type="button"
                 onClick={() => setMode("eraser")}
-                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 ${
-                  mode === "eraser" ? "bg-white text-black font-bold" : "text-[#888] hover:text-white"
+                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 cursor-pointer ${
+                  mode === "eraser" ? "bg-[#FF7830] text-white font-bold shadow-sm" : "text-zinc-500 hover:text-[#FF7830]"
                 }`}
               >
                 <Eraser className="h-3.5 w-3.5" />
@@ -531,8 +531,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
               <button
                 type="button"
                 onClick={() => setMode("ai")}
-                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 ${
-                  mode === "ai" ? "bg-white text-black font-bold" : "text-[#888] hover:text-white"
+                className={`py-2 px-1 text-[10px] font-mono uppercase tracking-widest transition-all rounded-sm flex flex-col items-center gap-1 cursor-pointer ${
+                  mode === "ai" ? "bg-gradient-to-r from-[#005BFE] to-[#FF7830] text-white font-bold shadow-sm" : "text-zinc-500 hover:text-[#005BFE]"
                 }`}
               >
                 <Sparkles className="h-3.5 w-3.5" />
@@ -541,17 +541,17 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
             </div>
 
             {/* Active tool deck render */}
-            <div className="bg-[#101010]/50 border border-[#1D1D1D] p-4 rounded-sm min-h-[220px]">
+            <div className="bg-white border border-blue-50 p-4 rounded-sm min-h-[220px] shadow-sm">
               
               {mode === "adjust" && (
                 <div className="space-y-5">
-                  <h3 className="text-xs tracking-wider uppercase font-mono text-[#AAA] mb-3 flex items-center gap-1.5">
-                    <Sun className="h-4 w-4 text-amber-500" /> Adjust Parameters
+                  <h3 className="text-xs tracking-wider uppercase font-mono text-zinc-700 font-bold mb-3 flex items-center gap-1.5">
+                    <Sun className="h-4 w-4 text-[#FF7830]" /> Adjust Parameters
                   </h3>
 
                   {/* Brightness slider */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between text-[10px] font-mono text-[#888]">
+                    <div className="flex justify-between text-[10px] font-mono text-zinc-500 font-bold">
                       <span>BRIGHTNESS</span>
                       <span>{brightness}%</span>
                     </div>
@@ -561,13 +561,13 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                       max="150"
                       value={brightness}
                       onChange={(e) => setBrightness(Number(e.target.value))}
-                      className="w-full accent-white"
+                      className="w-full accent-[#005BFE] cursor-pointer"
                     />
                   </div>
 
                   {/* Contrast Slider */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between text-[10px] font-mono text-[#888]">
+                    <div className="flex justify-between text-[10px] font-mono text-zinc-500 font-bold">
                       <span>CONTRAST</span>
                       <span>{contrast}%</span>
                     </div>
@@ -577,13 +577,13 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                       max="150"
                       value={contrast}
                       onChange={(e) => setContrast(Number(e.target.value))}
-                      className="w-full accent-white"
+                      className="w-full accent-[#005BFE] cursor-pointer"
                     />
                   </div>
 
                   {/* Saturation Slider */}
                   <div className="space-y-1.5">
-                    <div className="flex justify-between text-[10px] font-mono text-[#888]">
+                    <div className="flex justify-between text-[10px] font-mono text-zinc-500 font-bold">
                       <span>CHROMA SATURATION</span>
                       <span>{saturation}%</span>
                     </div>
@@ -593,17 +593,17 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                       max="200"
                       value={saturation}
                       onChange={(e) => setSaturation(Number(e.target.value))}
-                      className="w-full accent-white"
+                      className="w-full accent-[#005BFE] cursor-pointer"
                     />
                   </div>
 
                   {/* Rotation triggers */}
-                  <div className="space-y-2 pt-2 border-t border-[#1D1D1D]">
-                    <span className="block text-[10px] font-mono text-[#888]">ORIENT SURFACE</span>
+                  <div className="space-y-2 pt-2 border-t border-blue-50">
+                    <span className="block text-[10px] font-mono text-zinc-400 font-bold">ORIENT SURFACE</span>
                     <button
                       type="button"
                       onClick={() => setRotation((prev) => (prev + 90) % 360)}
-                      className="w-full py-2 border border-[#222] text-[10px] font-mono uppercase tracking-widest hover:border-white transition-all flex items-center justify-center gap-1.5 text-center bg-[#0C0C0C]"
+                      className="w-full py-2 border border-blue-105 text-[10px] font-mono text-[#005BFE] hover:text-white hover:bg-[#005BFE] uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 text-center bg-white cursor-pointer font-bold shadow-sm"
                     >
                       <RotateCw className="h-3.5 w-3.5" />
                       Rotate 90 Degrees
@@ -614,7 +614,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
 
               {mode === "crop" && (
                 <div className="space-y-4">
-                  <h3 className="text-xs tracking-wider uppercase font-mono text-[#AAA] mb-3">
+                  <h3 className="text-xs tracking-wider uppercase font-mono text-zinc-700 font-bold mb-3">
                     Format Dimensions
                   </h3>
                   
@@ -626,8 +626,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                         setAspectRatio("free");
                         setCropBox({ x: 10, y: 10, w: 80, h: 80 });
                       }}
-                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all ${
-                        aspectRatio === "free" ? "border-amber-500 text-amber-400" : "border-[#1D1D1D]"
+                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all cursor-pointer ${
+                        aspectRatio === "free" ? "border-[#005BFE] bg-[#005BFE]/10 text-[#005BFE] font-bold" : "border-blue-100 text-zinc-500 hover:border-blue-200"
                       }`}
                     >
                       Free Bound
@@ -638,8 +638,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                         setAspectRatio("1:1");
                         setCropBox({ x: 15, y: 15, w: 70, h: 70 });
                       }}
-                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all ${
-                        aspectRatio === "1:1" ? "border-amber-500 text-amber-400" : "border-[#1D1D1D]"
+                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all cursor-pointer ${
+                        aspectRatio === "1:1" ? "border-[#005BFE] bg-[#005BFE]/10 text-[#005BFE] font-bold" : "border-blue-100 text-zinc-500 hover:border-blue-200"
                       }`}
                     >
                       Square (1:1)
@@ -650,8 +650,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                         setAspectRatio("4:5");
                         setCropBox({ x: 20, y: 10, w: 60, h: 75 });
                       }}
-                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all ${
-                        aspectRatio === "4:5" ? "border-amber-500 text-amber-400" : "border-[#1D1D1D]"
+                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all cursor-pointer ${
+                        aspectRatio === "4:5" ? "border-[#005BFE] bg-[#005BFE]/10 text-[#005BFE] font-bold" : "border-blue-100 text-zinc-500 hover:border-blue-200"
                       }`}
                     >
                       Portrait (4:5)
@@ -662,8 +662,8 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                         setAspectRatio("16:9");
                         setCropBox({ x: 10, y: 25, w: 80, h: 45 });
                       }}
-                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all ${
-                        aspectRatio === "16:9" ? "border-amber-500 text-amber-400" : "border-[#1D1D1D]"
+                      className={`py-1.5 border text-[10px] font-mono uppercase rounded-sm transition-all cursor-pointer ${
+                        aspectRatio === "16:9" ? "border-[#005BFE] bg-[#005BFE]/10 text-[#005BFE] font-bold" : "border-blue-100 text-zinc-500 hover:border-blue-200"
                       }`}
                     >
                       Cinema (16:9)
@@ -671,15 +671,15 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                   </div>
 
                   {/* Manual bounds modification inputs */}
-                  <div className="space-y-2 pt-2 border-t border-[#1D1D1D]">
-                    <span className="block text-[10px] font-mono text-[#888]">ADJUST WINDOW</span>
+                  <div className="space-y-2 pt-2 border-t border-blue-105">
+                    <span className="block text-[10px] font-mono text-zinc-400 font-bold">ADJUST WINDOW</span>
                     <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
                       <div>
                         <span>X Span (%): </span>
                         <input 
                           type="range" min="0" max="40" value={cropBox.x} 
                           onChange={(e) => setCropBox(prev => ({ ...prev, x: Number(e.target.value) }))}
-                          className="w-full accent-amber-500"
+                          className="w-full accent-[#005BFE] cursor-pointer"
                         />
                       </div>
                       <div>
@@ -687,7 +687,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                         <input 
                           type="range" min="0" max="40" value={cropBox.y} 
                           onChange={(e) => setCropBox(prev => ({ ...prev, y: Number(e.target.value) }))}
-                          className="w-full accent-amber-500"
+                          className="w-full accent-[#005BFE] cursor-pointer"
                         />
                       </div>
                     </div>
@@ -696,7 +696,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                   <button
                     type="button"
                     onClick={applyCrop}
-                    className="w-full mt-4 py-2 bg-white text-black hover:bg-[#E5E5E5] text-[10px] font-bold uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-1"
+                    className="w-full mt-4 py-2 bg-[#005BFE] text-white hover:bg-[#0046C7] text-[10px] font-bold uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-1 cursor-pointer shadow-sm"
                   >
                     <Check className="h-3.5 w-3.5" />
                     Apply Crop Cut
@@ -707,20 +707,20 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
               {mode === "eraser" && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs tracking-wider uppercase font-mono text-[#AAA]">
+                    <h3 className="text-xs tracking-wider uppercase font-mono text-zinc-700 font-bold">
                       Magic Eraser Tool
                     </h3>
-                    <span className="text-[9px] font-mono bg-amber-500/10 text-amber-500 px-1.5 py-0.5 rounded-sm">
+                    <span className="text-[9px] font-mono bg-[#FF7830]/10 text-[#FF7830] px-1.5 py-0.5 rounded-sm font-bold border border-[#FF7830]/20">
                       Local AI Inpainter
                     </span>
                   </div>
                   
-                  <p className="text-[10px] text-[#888] leading-relaxed">
+                  <p className="text-[10px] text-zinc-550 leading-relaxed font-sans">
                     Brush direct over distractions, items, background figures or imperfections in red, then activate the eraser filter for a content-aware removal fill.
                   </p>
 
-                  <div className="space-y-1.5 pt-2 border-t border-[#1D1D1D]">
-                    <div className="flex justify-between text-[10px] font-mono text-[#888]">
+                  <div className="space-y-1.5 pt-2 border-t border-blue-50">
+                    <div className="flex justify-between text-[10px] font-mono text-zinc-400 font-bold">
                       <span>BRUSH RADIUS</span>
                       <span>{brushSize}px</span>
                     </div>
@@ -730,7 +730,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                       max="60"
                       value={brushSize}
                       onChange={(e) => setBrushSize(Number(e.target.value))}
-                      className="w-full accent-white"
+                      className="w-full accent-[#FF7830] cursor-pointer"
                     />
                   </div>
 
@@ -744,7 +744,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                           if (mctx) mctx.clearRect(0, 0, mask.width, mask.height);
                         }
                       }}
-                      className="py-2 border border-[#222] text-[10px] font-mono uppercase tracking-widest hover:border-rose-400 transition-all rounded-sm bg-[#0C0C0C]"
+                      className="py-2 border border-blue-105 text-[10px] font-mono uppercase tracking-widest hover:border-rose-400 hover:text-rose-500 transition-all rounded-sm bg-white cursor-pointer font-bold shadow-sm"
                     >
                       Clear Paint
                     </button>
@@ -752,7 +752,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                     <button
                       type="button"
                       onClick={applyMagicEraser}
-                      className="py-2 bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-1"
+                      className="py-2 bg-[#FF7830] hover:bg-[#E05E1A] text-white text-[10px] font-bold uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-1 cursor-pointer shadow-sm"
                     >
                       <Eraser className="h-3.5 w-3.5" />
                       Erase Object
@@ -763,47 +763,47 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
 
               {mode === "ai" && (
                 <div className="space-y-4">
-                  <h3 className="text-xs tracking-wider uppercase font-mono text-[#AAA]">
+                  <h3 className="text-xs tracking-wider uppercase font-mono text-zinc-700 font-bold">
                     Gemini AI Style Shifting
                   </h3>
 
                   {/* Preset Filters list */}
                   <div className="space-y-1">
-                    <span className="block text-[9px] font-mono text-[#666]">HIGH FASHION FILTERS</span>
+                    <span className="block text-[9px] font-mono text-zinc-400 font-bold">HIGH FASHION FILTERS</span>
                     <div className="grid grid-cols-2 gap-1.5">
                       <button
                         type="button"
                         onClick={() => applyStylePreset({ b: 95, c: 140, s: 0, name: "Silver Gelatin Noir" })}
-                        className="py-1 bg-[#151515] hover:bg-[#202020] rounded-sm text-[9px] font-mono text-[#DDD] text-left px-2 border border-[#222]"
+                        className="py-1 bg-white hover:bg-blue-50/50 rounded-sm text-[9px] font-mono text-zinc-700 text-left px-2 border border-blue-100 cursor-pointer shadow-sm font-bold"
                       >
                         ● Silver Gelatin Noir
                       </button>
                       <button
                         type="button"
                         onClick={() => applyStylePreset({ b: 115, c: 105, s: 130, name: "Golden Hour Studio" })}
-                        className="py-1 bg-[#151515] hover:bg-[#202020] rounded-sm text-[9px] font-mono text-[#DDD] text-left px-2 border border-[#222]"
+                        className="py-1 bg-white hover:bg-blue-50/50 rounded-sm text-[9px] font-mono text-zinc-700 text-left px-2 border border-blue-100 cursor-pointer shadow-sm font-bold"
                       >
                         ● Studio Golden GLOW
                       </button>
                       <button
                         type="button"
                         onClick={() => applyStylePreset({ b: 90, c: 125, s: 140, name: "Vibrant Cyan-Teal" })}
-                        className="py-1 bg-[#151515] hover:bg-[#202020] rounded-sm text-[9px] font-mono text-[#DDD] text-left px-2 border border-[#222]"
+                        className="py-1 bg-white hover:bg-blue-50/50 rounded-sm text-[9px] font-mono text-zinc-700 text-left px-2 border border-blue-100 cursor-pointer shadow-sm font-bold"
                       >
                         ● Cinematic Velvet
                       </button>
                       <button
                         type="button"
                         onClick={() => applyStylePreset({ b: 80, c: 150, s: 60, name: "Prada Slate Editorial" })}
-                        className="py-1 bg-[#151515] hover:bg-[#202020] rounded-sm text-[9px] font-mono text-[#DDD] text-left px-2 border border-[#222]"
+                        className="py-1 bg-white hover:bg-blue-50/50 rounded-sm text-[9px] font-mono text-zinc-700 text-left px-2 border border-blue-100 cursor-pointer shadow-sm font-bold"
                       >
                         ● Cyber Slate Moody
                       </button>
                     </div>
                   </div>
 
-                  <div className="space-y-1.5 pt-2 border-t border-[#1D1D1D]">
-                    <label className="block text-[10px] font-mono text-[#888] mb-1">
+                  <div className="space-y-1.5 pt-2 border-t border-blue-50">
+                    <label className="block text-[10px] font-mono text-zinc-400 font-bold mb-1">
                       GEMINI ART DIRECTION PROMPT
                     </label>
                     <textarea
@@ -811,7 +811,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                       onChange={(e) => setAiPrompt(e.target.value)}
                       placeholder="e.g. 'Convert this to classic vintage 1930s movie poster styling', 'add retro pink glasses', or 'make it dramatic B&W profile'"
                       rows={3}
-                      className="w-full text-xs p-2 bg-[#0C0C0C] border border-[#222] rounded-sm text-[#E5E5E5] focus:border-white outline-none placeholder:text-[#555]"
+                      className="w-full text-xs p-2 bg-white border border-blue-100 rounded-sm text-zinc-800 focus:border-[#005BFE] focus:ring-1 focus:ring-[#005BFE]/20 outline-none placeholder:text-zinc-400 font-medium"
                     />
                   </div>
 
@@ -819,9 +819,9 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
                     type="button"
                     onClick={handleAITransform}
                     disabled={isProcessing || !aiPrompt.trim()}
-                    className="w-full py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:opacity-90 disabled:opacity-40 text-black font-bold text-[10px] uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-1.5"
+                    className="w-full py-2 bg-gradient-to-r from-[#005BFE] to-[#FF7830] hover:opacity-95 disabled:opacity-40 text-white font-bold text-[10px] uppercase tracking-widest transition-all rounded-sm flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                   >
-                    <Sparkles className="h-3.5 w-3.5" />
+                    <Sparkles className="h-3.5 w-3.5 text-white" />
                     Transform Portrait Look
                   </button>
                 </div>
@@ -830,18 +830,18 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
 
             {/* AI Response feedback banner */}
             {aiFeedback && (
-              <div className="bg-amber-500/10 border border-amber-500/20 rounded-sm p-3 text-[10px] font-mono text-amber-300 leading-relaxed max-h-[100px] overflow-y-auto">
+              <div className="bg-blue-50 border border-blue-100 rounded-sm p-3 text-[10px] font-mono text-zinc-650 leading-relaxed max-h-[100px] overflow-y-auto shadow-inner">
                 {aiFeedback}
               </div>
             )}
           </div>
 
           {/* Commit & Save controls */}
-          <div className="pt-4 border-t border-[#2A2A2A] pb-2 flex gap-2">
+          <div className="pt-4 border-t border-blue-100 pb-2 flex gap-2">
             <button
               type="button"
               onClick={handleCommitSave}
-              className="flex-1 py-2.5 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-[#E5E5E5] transition-all flex items-center justify-center gap-1 shadow-md"
+              className="flex-1 py-2.5 bg-[#005BFE] text-white text-[10px] font-bold uppercase tracking-widest rounded-sm hover:bg-[#0046C7] transition-all flex items-center justify-center gap-1 shadow-md cursor-pointer"
             >
               <Check className="h-3.5 w-3.5" />
               Adopt Lens Render
@@ -849,7 +849,7 @@ export function PhotoEditor({ imageUrl, onSave, onClose }: PhotoEditorProps) {
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-2.5 border border-[#2A2A2A] text-[10px] hover:border-red-500 hover:text-red-400 transition-all text-slate-400 font-mono"
+              className="px-3 py-2.5 bg-white border border-blue-100 text-[10px] hover:border-red-500 hover:text-red-500 hover:bg-red-50 transition-all text-zinc-500 font-mono font-bold cursor-pointer rounded-sm shadow-sm"
             >
               Cancel
             </button>

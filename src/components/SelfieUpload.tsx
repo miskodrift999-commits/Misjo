@@ -147,18 +147,18 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
   };
 
   return (
-    <div id="selfie-uploader" className="bg-[#0F0F0F] rounded-sm border border-[#2A2A2A] overflow-hidden transition-all duration-300 hover:border-[#444] shadow-lg">
+    <div id="selfie-uploader" className="bg-white/70 backdrop-blur-md rounded-sm border border-blue-100/80 overflow-hidden transition-all duration-300 hover:border-blue-200 shadow-sm">
       {/* Tab Switcher */}
       {!draftImage && (
-        <div className="flex border-b border-[#2A2A2A] p-1 bg-[#090909]">
+        <div className="flex border-b border-blue-100 p-1 bg-blue-50/50">
           <button
             id="tab-btn-file"
             type="button"
             onClick={() => setActiveTab("file")}
             className={`flex-1 py-2.5 text-[10px] uppercase tracking-[0.2em] font-mono rounded-none flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
               activeTab === "file"
-                ? "bg-white text-black font-bold"
-                : "text-zinc-500 hover:text-white hover:bg-white/5"
+                ? "bg-[#005BFE] text-white font-bold shadow-sm"
+                : "text-zinc-500 hover:text-[#005BFE] hover:bg-blue-50/30"
             }`}
           >
             <Upload className="h-3.5 w-3.5" />
@@ -170,8 +170,8 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
             onClick={() => setActiveTab("camera")}
             className={`flex-1 py-2.5 text-[10px] uppercase tracking-[0.2em] font-mono rounded-none flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer ${
               activeTab === "camera"
-                ? "bg-white text-black font-bold"
-                : "text-zinc-500 hover:text-white hover:bg-white/5"
+                ? "bg-[#005BFE] text-white font-bold shadow-sm"
+                : "text-zinc-500 hover:text-[#005BFE] hover:bg-blue-50/30"
             }`}
           >
             <Camera className="h-3.5 w-3.5" />
@@ -201,11 +201,11 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   onClick={() => fileInputRef.current?.click()}
                   className={`relative border border-dashed rounded-none p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 min-h-[220px] ${
                     dragActive
-                      ? "border-white bg-[#141414] scale-[0.99]"
-                      : "border-[#444] hover:border-[#888] bg-[#0A0A0A]/40 hover:bg-[#0A0A0A]"
+                      ? "border-[#005BFE] bg-blue-100/10 scale-[0.99]"
+                      : "border-blue-200 hover:border-[#005BFE] bg-white/40 hover:bg-white/80"
                   }`}
                 >
-                  <div className="absolute top-3 left-3 text-[9px] text-zinc-600 font-mono tracking-widest">RECORD_UNIT</div>
+                  <div className="absolute top-3 left-3 text-[9px] text-zinc-400 font-mono tracking-widest">RECORD_UNIT</div>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -213,10 +213,10 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="h-14 w-14 rounded-full border border-[#2A2A2A] bg-[#0C0C0C] flex items-center justify-center text-zinc-400 mb-4 shadow-inner">
+                  <div className="h-14 w-14 rounded-full border border-blue-100 bg-blue-50/70 flex items-center justify-center text-[#005BFE] mb-4 shadow-sm">
                     <Upload className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-serif italic text-white tracking-wide">
+                  <h3 className="text-lg font-serif italic text-zinc-800 tracking-wide">
                     Upload a photograph of yourself
                   </h3>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mt-2 max-w-sm leading-relaxed">
@@ -225,8 +225,8 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                 </div>
               ) : (
                 /* Camera snapshot feed interface */
-                <div className="relative rounded-none overflow-hidden bg-black border border-[#2A2A2A] flex flex-col items-center justify-center min-h-[280px]">
-                  <div className="absolute top-3 left-3 text-[9px] text-zinc-500 font-mono tracking-widest z-10">LENS_CAPTURE</div>
+                <div className="relative rounded-none overflow-hidden bg-slate-900 border border-blue-100 flex flex-col items-center justify-center min-h-[280px]">
+                  <div className="absolute top-3 left-3 text-[9px] text-zinc-400 font-mono tracking-widest z-10 font-bold">LENS_CAPTURE</div>
                   {cameraActive && (
                     <div className="relative w-full aspect-video">
                       <video
@@ -245,8 +245,8 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
 
                   {/* Camera Loader / Indicator */}
                   {!cameraActive && !cameraError && (
-                    <div className="text-center p-6 text-zinc-500 text-xs font-mono">
-                      <RefreshCw className="h-5 w-5 animate-spin mx-auto mb-3 text-zinc-500" />
+                    <div className="text-center p-6 text-zinc-400 text-xs font-mono">
+                      <RefreshCw className="h-5 w-5 animate-spin mx-auto mb-3 text-zinc-400" />
                       INITIALIZING OPTICS...
                     </div>
                   )}
@@ -267,7 +267,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                         id="btn-selfie-shutter"
                         type="button"
                         onClick={captureSelfieSnapshot}
-                        className="bg-white hover:bg-zinc-200 active:scale-95 text-black text-[10px] uppercase tracking-[0.2em] font-bold px-5 py-3 rounded-none shadow-2xl flex items-center gap-2 transition-all duration-150 cursor-pointer"
+                        className="bg-[#005BFE] hover:bg-[#0046C7] active:scale-95 text-white text-[10px] uppercase tracking-[0.2em] font-bold px-5 py-3 rounded-none shadow-lg flex items-center gap-2 transition-all duration-150 cursor-pointer"
                       >
                         <Camera className="h-3.5 w-3.5" />
                         Capture Frame
@@ -286,21 +286,21 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
               exit={{ opacity: 0, scale: 0.99 }}
               className="space-y-4"
             >
-              <div className="relative border border-[#2A2A2A] bg-black p-2">
+              <div className="relative border border-blue-100 bg-slate-50 p-2">
                 <img
                   src={draftImage}
                   alt="Draft Look"
-                  className="w-full h-72 object-contain bg-[#0C0C0C]"
+                  className="w-full h-72 object-contain bg-white"
                 />
                 <button
                   type="button"
                   onClick={handleCancelDraft}
-                  className="absolute top-4 right-4 bg-black/80 hover:bg-black hover:text-white border border-[#2A2A2A] text-zinc-400 rounded-none p-2 transition-all active:scale-90 z-20"
+                  className="absolute top-4 right-4 bg-white/90 hover:bg-red-500 hover:text-white border border-blue-100 text-zinc-650 rounded-none p-2 transition-all active:scale-90 z-20 shadow-sm cursor-pointer"
                   title="Remove this draft"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
-                <div className="absolute bottom-4 left-4 bg-black/90 border border-[#2A2A2A] text-[9px] uppercase tracking-widest text-[#E5E5E5] px-2.5 py-1 font-mono">
+                <div className="absolute bottom-4 left-4 bg-white/95 border border-blue-100 text-[9px] uppercase tracking-widest text-[#005BFE] px-2.5 py-1 font-mono font-bold shadow-sm">
                   EXHIBIT_DRAFT_STAGE
                 </div>
                 
@@ -308,7 +308,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                 <button
                   type="button"
                   onClick={() => setIsEditingPhoto(true)}
-                  className="absolute bottom-4 right-4 bg-black/95 hover:bg-white hover:text-black border border-[#2A2A2A] hover:border-white text-[9px] uppercase tracking-widest text-amber-400 px-3 py-1.5 font-mono flex items-center gap-1.5 transition-all shadow-md active:scale-95 z-20 cursor-pointer"
+                  className="absolute bottom-4 right-4 bg-[#FF7830] hover:bg-[#E65F19] text-white border border-[#FF7830] text-[9px] uppercase tracking-widest px-3 py-1.5 font-mono flex items-center gap-1.5 transition-all shadow-md active:scale-95 z-20 cursor-pointer font-bold"
                 >
                   <Sparkles className="h-3.5 w-3.5" />
                   Edit Photo / AI Styling
@@ -317,7 +317,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
 
               {/* Note Journal Details */}
               <div className="space-y-1.5 pt-2">
-                <label className="block text-[10px] uppercase tracking-[0.2em] font-mono text-zinc-400">
+                <label className="block text-[10px] uppercase tracking-[0.2em] font-mono text-zinc-550">
                   Write a journal note (optional)
                 </label>
                 <textarea
@@ -326,7 +326,7 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Record your mindset, focus elements, outfit selections, or vibe..."
                   rows={3}
-                  className="w-full text-xs p-3.5 border border-[#2A2A2A] bg-[#080808] text-white focus:border-zinc-400 outline-none transition-all placeholder:text-zinc-600 font-sans tracking-wide rounded-none"
+                  className="w-full text-xs p-3.5 border border-blue-100 bg-white text-zinc-850 focus:border-[#005BFE] outline-none transition-all placeholder:text-zinc-400 font-sans tracking-wide rounded-none shadow-inner"
                 />
               </div>
 
@@ -336,16 +336,16 @@ export function SelfieUpload({ onPhotoAdded }: SelfieUploadProps) {
                   id="btn-selfie-post"
                   type="button"
                   onClick={handleSubmit}
-                  className="flex-1 bg-white hover:bg-zinc-200 text-black text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
+                  className="flex-1 bg-[#005BFE] hover:bg-[#0046C7] text-white text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
                 >
-                  <Check className="h-4 w-4 text-emerald-600" />
+                  <Check className="h-4 w-4 text-white" />
                   Save Exhibit
                 </button>
                 <button
                   id="btn-selfie-retake"
                   type="button"
                   onClick={handleCancelDraft}
-                  className="bg-transparent hover:bg-white/5 text-[#E5E5E5] border border-[#2A2A2A] text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="bg-transparent hover:bg-blue-50 text-[#005BFE] border border-blue-100 text-[10px] uppercase tracking-[0.2em] font-bold py-3 px-4 rounded-none active:scale-[0.98] transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <RefreshCw className="h-3.5 w-3.5" />
                   Discard
