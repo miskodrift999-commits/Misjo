@@ -1,0 +1,10 @@
+{
+  "name": "Selfie Journal",
+  "description": "Upload and organize photos of yourself, write personal notes or diary entries, and let Gemini analyze your style, extract color palettes, and provide positive confidence boosters.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
